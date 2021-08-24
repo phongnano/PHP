@@ -25,8 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($checkExistUsername > 0) {
             $username_err = 'Tài khoản đã tồn tại';
         } else {
-//            $username = trim($_POST['username']);
-            echo $username;
+            $username = trim($_POST['username']);
         }
 
 
@@ -179,7 +178,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <div class="wrapper">
     <h2>Đăng Ký</h2>
-    <p>Vui lòng điền vào biểu mẫu để tạo tài khoản</p>
+    <p>Vui lòng điền vào biểu mẫu để tạo tài khoản <?php echo $username; ?></p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
             <label>Tài khoản</label>
