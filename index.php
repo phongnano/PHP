@@ -27,8 +27,8 @@
                 <a href="#" class="nav-item nav-link">Liên hệ</a>
             </div>
             <div class="navbar-nav ml-auto">
-                <a href="form/register.php" class="nav-item nav-link">Đăng ký</a>
-                <a href="form/login.php" class="nav-item nav-link">Đăng nhập</a>
+                <a href="register.php" class="nav-item nav-link">Đăng ký</a>
+                <a href="login.php" class="nav-item nav-link">Đăng nhập</a>
             </div>
         </div>
     </div>

@@ -136,7 +136,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     }
     ?>
 
-    <form action="../process/selectUser.php" method="post">
+    <form action="selectUser.php" method="post">
         <div class="form-group">
             <label>Tài khoản</label>
             <input type="text" name="username" class="form-control">
