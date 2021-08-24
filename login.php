@@ -8,6 +8,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     exit;
 }
 
+require_once 'connection.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['login'])) {
         $username = $_POST['username'];
@@ -22,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-?>
 
 //// Include config file
 //require_once "process/connection.php";
@@ -122,6 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 //    // Close connection
 //    mysqli_close($link);
 //}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
