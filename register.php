@@ -133,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result) {
             header("location: login.php");
         } else {
-            echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . mysqli_stmt_error($stmt);
+            echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . pg_result_error();
         }
 //        if ($stmt = mysqli_prepare($link, $sql)) {
 //            // Bind variables to the prepared statement as parameters
