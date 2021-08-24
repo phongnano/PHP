@@ -81,7 +81,7 @@ $gender = pg_escape_string($_POST['gender']);
 $password = pg_escape_string($_POST['password']);
 $role = pg_escape_string($_POST['role']);
 
-if (!empty($fName) && !empty($lName)) {
+if (!empty($username) && !empty($fullname) && !empty($gender) && !empty($password) && !empty($role)) {
 
     $sql = "insert into users (username, fullname, gender, password, role) values ('" . $username . "', '" . $fullname . "', '" . $gender . "', '" . $password . "', '" . $role . "')";
     pg_query($dbconn, $sql);
