@@ -149,7 +149,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Đăng nhập">
-            <a class="btn btn-danger ml-5" href="../index.php" role="button" name="register">Quay về</a>
+            <a class="btn btn-danger ml-5" href="index.php" role="button" id="login">Quay về</a>
         </div>
         <p>Bạn chưa có tài khoản? <a href="register.php">Đăng ký ngay</a></p>
     </form>
