@@ -16,32 +16,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username_err = "Tài khoản chỉ có thể chứa chữ cái, số và dấu gạch dưới";
     } else {
         // Prepare a select statement
-        $sql = "select username from users where username = ?";
+        $username = trim($_POST['username']);
+        $username = md5($_POST['password']);
 
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
-
-            // Set parameters
-            $param_username = trim($_POST["username"]);
-
-            // Attempt to execute the prepared statement
-            if (mysqli_stmt_execute($stmt)) {
-                /* store result */
-                mysqli_stmt_store_result($stmt);
-
-                if (mysqli_stmt_num_rows($stmt) == 1) {
-                    $username_err = "Tài khoản đã tồn tại";
-                } else {
-                    $username = trim($_POST["username"]);
-                }
-            } else {
-                echo "Đã xảy ra lỗi. Vui lòng thử lại sau";
-            }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
+        $sql = "select username from users where username = '" . $username . "'";
+        $result = pg_query($link, $sql);
+        $checkExistUsername = pg_num_rows($result);
+        if ($checkExistUsername > 0) {
+            $username_err = 'Tài khoản đã tồn tại';
+        } else {
+            $username = trim($_POST['username']);
         }
+
+
+//        if ($stmt = pg_prepare($link, $sql)) {
+//            // Bind variables to the prepared statement as parameters
+//            pg_query_params($stmt,  $param_username);
+//
+//             Set parameters
+//            $param_username = trim($_POST["username"]);
+//
+//            // Attempt to execute the prepared statement
+//            if (mysqli_stmt_execute($stmt)) {
+//                /* store result */
+//                mysqli_stmt_store_result($stmt);
+//
+//                if (mysqli_stmt_num_rows($stmt) == 1) {
+//                    $username_err = "Tài khoản đã tồn tại";
+//                } else {
+//                    $username = trim($_POST["username"]);
+//                }
+//            } else {
+//                echo "Đã xảy ra lỗi. Vui lòng thử lại sau";
+//            }
+//
+//            // Close statement
+//            mysqli_stmt_close($stmt);
+//        }
     }
 
     if (empty(trim($_POST["fullname"]))) {
