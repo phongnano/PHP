@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Prepare a select statement
         $username = trim($_POST['username']);
-        $username = md5($_POST['password']);
+        $username = trim($_POST['password']);
 
         $sql = "select username from users where username = '" . $username . "'";
         $result = pg_query($link, $sql);
