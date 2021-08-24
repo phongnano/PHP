@@ -137,9 +137,11 @@ if (!empty($username) && !empty($fullname) && !empty($gender) && !empty($passwor
         <table class="table table-striped table-hover table-bordered">
             <thead>
             <tr>
-                <th>Key</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Username</th>
+                <th>Fullname</th>
+                <th>Gender</th>
+                <th>Password</th>
+                <th>Role</th>
             </tr>
             </thead>
             <tbody>
@@ -165,11 +167,11 @@ if (!empty($username) && !empty($fullname) && !empty($gender) && !empty($passwor
             $resultset = pg_query($dbconn, $sql);
             while ($row = pg_fetch_array($resultset)) {
                 echo '<tr>
-                                        <td>' . $row[0] . '</td>
-                                        <td>' . $row[1] . '</td>
-                                        <td>' . $row[2] . '</td>
-                                        <td>' . $row[3] . '</td>
-                                        <td>' . $row[4] . '</td>
+                                        <td>' . $row['username'] . '</td>
+                                        <td>' . $row['fullname'] . '</td>
+                                        <td>' . $row['gender'] . '</td>
+                                        <td>' . $row['password'] . '</td>
+                                        <td>' . $row['role'] . '</td>
                                     </tr>';
             }
 
