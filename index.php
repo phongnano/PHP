@@ -175,7 +175,7 @@ if (!empty($username) && !empty($fullname) && !empty($gender) && !empty($passwor
                                     </tr>';
             }
 
-            pg_close($dbconn);
+            //            pg_close($dbconn);
             ?>
             </tbody>
         </table>
