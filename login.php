@@ -8,6 +8,22 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['login'])) {
+        $username = $_POST['username'];
+        $username = $_POST['password'];
+
+        $query = pg_query($link, "select username, password from users u where u.username = '" . $username . "' and password = '" . $password . "'");
+        if ($query) {
+            echo "<script>alert('<?php echo $password;?>');</script>";
+            header('location: index.php');
+        } else {
+            echo "<script>alert('Đăng nhập thất bại');</script>";
+        }
+    }
+}
+?>
+
 //// Include config file
 //require_once "process/connection.php";
 //
@@ -106,7 +122,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 //    // Close connection
 //    mysqli_close($link);
 //}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -136,7 +151,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     }
     ?>
 
-    <form action="selectUser.php" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <div class="form-group">
             <label>Tài khoản</label>
             <input type="text" name="username" class="form-control">
