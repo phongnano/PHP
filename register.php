@@ -120,7 +120,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         body {
             font: 14px sans-serif;
         }
-
         .wrapper {
             width: 360px;
             padding: 20px;
@@ -134,27 +133,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
             <label>Tài khoản</label>
-            <label>
                 <input type="text" name="username" placeholder="Nhập tài khoản"
                        class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
                        value="<?php echo $username; ?>">
-            </label>
             <span class="invalid-feedback"><?php echo $username_err; ?></span>
         </div>
 
         <div class="form-group">
             <label>Họ và tên</label>
-            <label>
                 <input type="text" name="fullname" placeholder="Nhập họ và tên"
                        class="form-control <?php echo (!empty($fullname_err)) ? 'is-invalid' : ''; ?>"
                        value="<?php echo $fullname; ?>">
-            </label>
             <span class="invalid-feedback"><?php echo $fullname_err; ?></span>
         </div>
 
         <div class="form-group">
             <label>Giới tính</label>
-            <label>
                 <select name="gender"
                         class="custom-select mr-sm-2 <?php echo (!empty($gender_err)) ? 'is-invalid' : ''; ?>">
                     <option disabled selected hidden>
@@ -163,34 +157,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option value="male" <?php echo $gender; ?>>Nam</option>
                     <option value="female" <?php echo $gender; ?>>Nữ</option>
                 </select>
-            </label>
             <span class="invalid-feedback"><?php echo $gender_err; ?></span>
         </div>
 
 
         <div class="form-group">
             <label>Mật khẩu</label>
-            <label>
                 <input type="password" name="password" placeholder="Nhập mật khẩu"
                        class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
                        value="<?php echo $password; ?>">
-            </label>
             <span class="invalid-feedback"><?php echo $password_err; ?></span>
         </div>
 
         <div class="form-group">
             <label>Xác nhận mật khẩu</label>
-            <label>
                 <input type="password" name="confirm_password" placeholder="Nhập lại mật khẩu"
                        class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>"
                        value="<?php echo $confirm_password; ?>">
-            </label>
             <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
         </div>
 
         <div class="form-group">
             <label>Chức vụ</label>
-            <label>
                 <select name="role"
                         class="custom-select mr-sm-2 <?php echo (!empty($role_err)) ? 'is-invalid' : ''; ?>">
                     <option disabled selected hidden>
@@ -200,7 +188,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option value="staff" <?php echo $role; ?>>Nhân viên</option>
                     <option value="customer" <?php echo $role; ?>>Khách hàng</option>
                 </select>
-            </label>
             <span class="invalid-feedback"><?php echo $role_err; ?></span>
         </div>
 
