@@ -127,34 +127,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($username_err) && empty($fullname_err) && empty($gender_err) && empty($password_err) && empty($confirm_password_err) && empty($role_err)) {
 
         // Prepare an insert statement
-        $sql = "insert into users (username, fullname, gender, password, role) values (?, ?, ?, ?, ?)";
+        $sql = "insert into users (username, fullname, gender, password, role) values ('" . $username . "','" . $_POST['fullname'] . "','" . $_POST['gender'] . "','" . $password . "','" . $_POST['role'] . "')";
+        $result = pg_query($link, $sql);
 
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sssss", $param_username, $param_fullname, $param_gender, $param_password, $param_role);
-
-            // Set parameters
-            $param_username = $username;
-            $param_fullname = trim($_POST['fullname']);
-            $param_gender = $gender;
-            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-            $param_role = $role;
-
-            // Attempt to execute the prepared statement
-            if (mysqli_stmt_execute($stmt)) {
-                // Redirect to login page
-                header("location: login.php");
-            } else {
-                echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . mysqli_stmt_error($stmt);
-            }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
+        if ($result) {
+            header("location: login.php");
+        } else {
+            echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . mysqli_stmt_error($stmt);
         }
+//        if ($stmt = mysqli_prepare($link, $sql)) {
+//            // Bind variables to the prepared statement as parameters
+//            mysqli_stmt_bind_param($stmt, "sssss", $param_username, $param_fullname, $param_gender, $param_password, $param_role);
+//
+//            // Set parameters
+//            $param_username = $username;
+//            $param_fullname = trim($_POST['fullname']);
+//            $param_gender = $gender;
+//            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+//            $param_role = $role;
+//
+//            // Attempt to execute the prepared statement
+//            if (mysqli_stmt_execute($stmt)) {
+//                // Redirect to login page
+//                header("location: login.php");
+//            } else {
+//                echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . mysqli_stmt_error($stmt);
+//            }
+//
+//            // Close statement
+//            mysqli_stmt_close($stmt);
+//        }
     }
 
     // Close connection
-    mysqli_close($link);
+//    mysqli_close($link);
 }
 ?>
 
@@ -178,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <div class="wrapper">
     <h2>Đăng Ký</h2>
-    <p>Vui lòng điền vào biểu mẫu để tạo tài khoản <?php echo $username; ?></p>
+    <p>Vui lòng điền vào biểu mẫu để tạo tài khoản</p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
             <label>Tài khoản</label>
