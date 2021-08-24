@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script>alert('<?php echo $password;?>');</script>";
         header('location: index.php');
     } else {
-        echo "<script>alert('Đăng nhập thất bại');</script>";
+        echo pg_result_error($query);
     }
 }
 
