@@ -131,9 +131,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = pg_query($link, $sql);
 
         if ($result) {
+            echo '<script>alert("Đăng ký thành công");</script>';
             header("location: login.php");
         } else {
-            echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . pg_result_error();
+            echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . pg_result_error($result);
         }
 //        if ($stmt = mysqli_prepare($link, $sql)) {
 //            // Bind variables to the prepared statement as parameters
