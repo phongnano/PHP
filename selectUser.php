@@ -10,6 +10,6 @@ if (isset($_POST['login'])) {
         echo "<script>alert('<?php echo $password;?>');</script>";
         header('location: index.php');
     } else {
-        echo 'Đăng nhập thất bại';
+        echo "<script>alert('Đăng nhập thất bại');</script>";
     }
 }
