@@ -13,11 +13,14 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="d9dhsg5pgvf1n2@ec2-18-214-238-28.compute-1.amazonaws.com" uuid="d992d957-da18-45bf-a524-ed7cb19f2253">
+    <data-source source="LOCAL" name="PostgreSQL - d9dhsg5pgvf1n2@ec2-18-214-238-28.compute-1.amazonaws.com" uuid="d992d957-da18-45bf-a524-ed7cb19f2253">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://ec2-18-214-238-28.compute-1.amazonaws.com:5432/d9dhsg5pgvf1n2</jdbc-url>
+      <driver-properties>
+        <property name="sslmode" value="require" />
+      </driver-properties>
     </data-source>
   </component>
 </project>
