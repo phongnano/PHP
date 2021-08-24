@@ -25,7 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($checkExistUsername > 0) {
             $username_err = 'Tài khoản đã tồn tại';
         } else {
-            $username = trim($_POST['username']);
+//            $username = trim($_POST['username']);
+            echo $username;
         }
 
 
