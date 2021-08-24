@@ -7,7 +7,7 @@ if (isset($_POST['login'])) {
 
     $query = pg_query($link, "select username, password from users u where u.username = '" . $username . "' and password = '" . $password . "'");
     if ($query) {
-        echo 'Đăng nhập thành công';
+        echo "<script>alert('<?php echo $password;?>');</script>";
         header('location: index.php');
     } else {
         echo 'Đăng nhập thất bại';
