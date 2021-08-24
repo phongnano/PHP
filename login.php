@@ -152,6 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Đăng nhập">
+            <a class="btn btn-danger ml-5" href="index.php" role="button">Quay về</a>
         </div>
         <p>Bạn chưa có tài khoản? <a href="register.php">Đăng ký ngay</a></p>
     </form>
