@@ -1,6 +1,6 @@
 <?php
 // Include config file
-require_once "connection.php";
+require_once "process/connection.php";
 
 // Define variables and initialize with empty values
 $username = $fullname = $gender = $birthday = $role = $password = $confirm_password = "";
@@ -151,47 +151,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="form-group">
             <label>Tài khoản</label>
             <input type="text" name="username" placeholder="Nhập tài khoản"
-                   class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
-                   value="<?php echo $username; ?>">
-            <span class="invalid-feedback"><?php echo $username_err; ?></span>
+                   class="form-control">
+            <!--            <span class="invalid-feedback">--><?php //echo $username_err; ?><!--</span>-->
         </div>
 
         <div class="form-group">
             <label>Họ và tên</label>
             <input type="text" name="fullname" placeholder="Nhập họ và tên"
-                   class="form-control <?php echo (!empty($fullname_err)) ? 'is-invalid' : ''; ?>"
-                   value="<?php echo $fullname; ?>">
-            <span class="invalid-feedback"><?php echo $fullname_err; ?></span>
+                   class="form-control"
+            <!--            <span class="invalid-feedback">--><?php //echo $fullname_err; ?><!--</span>-->
         </div>
 
         <div class="form-group">
             <label>Giới tính</label>
             <select name="gender"
-                    class="custom-select mr-sm-2 <?php echo (!empty($gender_err)) ? 'is-invalid' : ''; ?>">
+                    class="custom-select mr-sm-2">
                 <option disabled selected hidden>
                     Chọn giới tính
                 </option>
-                <option value="male" <?php echo $gender; ?>>Nam</option>
-                <option value="female" <?php echo $gender; ?>>Nữ</option>
+                <option value="male">Nam</option>
+                <option value="female">Nữ</option>
             </select>
-            <span class="invalid-feedback"><?php echo $gender_err; ?></span>
+            <!--            <span class="invalid-feedback">--><?php //echo $gender_err; ?><!--</span>-->
         </div>
 
 
         <div class="form-group">
             <label>Mật khẩu</label>
             <input type="password" name="password" placeholder="Nhập mật khẩu"
-                   class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
-                   value="<?php echo $password; ?>">
-            <span class="invalid-feedback"><?php echo $password_err; ?></span>
+                   class="form-control"
+            <!--            <span class="invalid-feedback">--><?php //echo $password_err; ?><!--</span>-->
         </div>
 
         <div class="form-group">
             <label>Xác nhận mật khẩu</label>
             <input type="password" name="confirm_password" placeholder="Nhập lại mật khẩu"
-                   class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>"
-                   value="<?php echo $confirm_password; ?>">
-            <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+                   class="form-control"
+            <!--            <span class="invalid-feedback">--><?php //echo $confirm_password_err; ?><!--</span>-->
         </div>
 
         <div class="form-group">
@@ -201,9 +197,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option disabled selected hidden>
                     Chọn chức vụ
                 </option>
-                <option value="admin" <?php echo $role; ?>>Quản trị viên</option>
-                <option value="staff" <?php echo $role; ?>>Nhân viên</option>
-                <option value="customer" <?php echo $role; ?>>Khách hàng</option>
+                <option value="admin">Quản trị viên</option>
+                <option value="staff">Nhân viên</option>
+                <option value="customer">Khách hàng</option>
             </select>
             <span class="invalid-feedback"><?php echo $role_err; ?></span>
         </div>

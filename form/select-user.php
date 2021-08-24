@@ -2,7 +2,7 @@
 // Check existence of id parameter before processing further
 if (isset($_GET["username"]) && !empty(trim($_GET["username"]))) {
     // Include config file
-    require_once "connection.php";
+    require_once "process/connection.php";
 
     // Prepare a select statement
     $sql = "SELECT * FROM users WHERE username = ?";
