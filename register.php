@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Redirect to login page
                 header("location: login.php");
             } else {
-                echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . mysqli_stmt_error();
+                echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . mysqli_stmt_error($stmt);
             }
 
             // Close statement
