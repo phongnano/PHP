@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Validate password
+
     if (empty(trim($_POST["password"]))) {
         $password_err = "Vui lòng nhập mật khẩu";
     } elseif (strlen(trim($_POST["password"])) < 6) {
