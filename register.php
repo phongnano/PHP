@@ -1,13 +1,13 @@
 <?php
 // Include config file
-require_once "process/connection.php";
+require_once "connection.php";
 
 // Define variables and initialize with empty values
-$username = $fullname = $gender = $birthday = $role = $password = $confirm_password = "";
-$username_err = $fullname_err = $gender_err = $birthday_err = $role_err = $password_err = $confirm_password_err = "";
+//$username = $fullname = $gender = $birthday = $role = $password = $confirm_password = "";
+//$username_err = $fullname_err = $gender_err = $birthday_err = $role_err = $password_err = $confirm_password_err = "";
 
 // Processing form data when form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 //    // Validate username
 //    if (empty(trim($_POST["username"]))) {
@@ -108,13 +108,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //        }
 //    }
 
-    $_username = $_POST['username'];
-    $fullname = $_POST['fullname'];
-    $gender = $_POST['gender'];
-    $password = $_POST['password'];
-    $role = $_POST['role'];
 
-    $sql = "insert into users (username, fullname, gender, password, role) values ('" . $username . "','" . $fullname . "','" . $gender . "','" . $password . "','" . $role . "')";
+$_username = $_POST['username'];
+$fullname = $_POST['fullname'];
+$gender = $_POST['gender'];
+$password = $_POST['password'];
+$role = $_POST['role'];
+
+if (!empty($username) && !empty($fullname) && !empty($gender) && !empty($password) && !empty($role)) {
+    switch ($gender) {
+        case 'male':
+        {
+            $gender = 0;
+            break;
+        }
+        case 'female':
+        {
+            $gender = 1;
+            break;
+        }
+    }
+
+    switch ($role) {
+        case 'admin':
+        {
+            $role = 0;
+            break;
+        }
+        case 'staff':
+        {
+            $role = 1;
+            break;
+        }
+        case 'customer':
+        {
+            $role = 2;
+            break;
+        }
+    }
+
+
+    $sql = "insert into users (username, fullname, gender, password, role) values ('" . $username . "', '" . $fullname . "', '" . $gender . "', '" . $password . "', '" . $role . "')";
     $result = pg_query($link, $sql);
 
     if ($result) {
@@ -123,6 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . pg_result_error($result);
     }
+//    }
 }
 ?>
 
@@ -147,7 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="wrapper">
     <h2>Đăng Ký</h2>
     <p>Vui lòng điền vào biểu mẫu để tạo tài khoản</p>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form method="post">
         <div class="form-group">
             <label>Tài khoản</label>
             <input type="text" name="username" placeholder="Nhập tài khoản"
