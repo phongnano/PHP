@@ -27,37 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $username = trim($_POST['username']);
         }
-
-
-//        if ($stmt = pg_prepare($link, $sql)) {
-//            // Bind variables to the prepared statement as parameters
-//            pg_query_params($stmt,  $param_username);
-//
-//             Set parameters
-//            $param_username = trim($_POST["username"]);
-//
-//            // Attempt to execute the prepared statement
-//            if (mysqli_stmt_execute($stmt)) {
-//                /* store result */
-//                mysqli_stmt_store_result($stmt);
-//
-//                if (mysqli_stmt_num_rows($stmt) == 1) {
-//                    $username_err = "Tài khoản đã tồn tại";
-//                } else {
-//                    $username = trim($_POST["username"]);
-//                }
-//            } else {
-//                echo "Đã xảy ra lỗi. Vui lòng thử lại sau";
-//            }
-//
-//            // Close statement
-//            mysqli_stmt_close($stmt);
-//        }
     }
 
     if (empty(trim($_POST["fullname"]))) {
         $fullname_err = "Vui lòng nhập họ và tên";
-    } elseif (!preg_match('/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/', trim($_POST["fullname"]))) {
+    } elseif (!preg_match('/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỂẾưạảấầẩẫậắằẳẵặẹẻẽềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/', trim($_POST["fullname"]))) {
         $fullname_err = "Họ tên chỉ có thể chứa chữ cái";
     } else {
         $fullname = $_POST['fullname'];
@@ -113,7 +87,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = trim($_POST["password"]);
     }
 
-    // Validate confirm password
     if (empty(trim($_POST["confirm_password"]))) {
         $confirm_password_err = "Vui lòng xác nhận mật khẩu";
     } else {
@@ -123,10 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Check input errors before inserting in database
     if (empty($username_err) && empty($fullname_err) && empty($gender_err) && empty($password_err) && empty($confirm_password_err) && empty($role_err)) {
-
-        // Prepare an insert statement
         $sql = "insert into users (username, fullname, gender, password, role) values ('" . $username . "','" . $_POST['fullname'] . "','" . $_POST['gender'] . "','" . $password . "','" . $_POST['role'] . "')";
         $result = pg_query($link, $sql);
 
@@ -136,32 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . pg_result_error($result);
         }
-//        if ($stmt = mysqli_prepare($link, $sql)) {
-//            // Bind variables to the prepared statement as parameters
-//            mysqli_stmt_bind_param($stmt, "sssss", $param_username, $param_fullname, $param_gender, $param_password, $param_role);
-//
-//            // Set parameters
-//            $param_username = $username;
-//            $param_fullname = trim($_POST['fullname']);
-//            $param_gender = $gender;
-//            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-//            $param_role = $role;
-//
-//            // Attempt to execute the prepared statement
-//            if (mysqli_stmt_execute($stmt)) {
-//                // Redirect to login page
-//                header("location: login.php");
-//            } else {
-//                echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . mysqli_stmt_error($stmt);
-//            }
-//
-//            // Close statement
-//            mysqli_stmt_close($stmt);
-//        }
     }
-
-    // Close connection
-//    mysqli_close($link);
 }
 ?>
 
@@ -189,61 +134,73 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
             <label>Tài khoản</label>
-            <input type="text" name="username" placeholder="Nhập tài khoản"
-                   class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
-                   value="<?php echo $username; ?>">
+            <label>
+                <input type="text" name="username" placeholder="Nhập tài khoản"
+                       class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
+                       value="<?php echo $username; ?>">
+            </label>
             <span class="invalid-feedback"><?php echo $username_err; ?></span>
         </div>
 
         <div class="form-group">
             <label>Họ và tên</label>
-            <input type="text" name="fullname" placeholder="Nhập họ và tên"
-                   class="form-control <?php echo (!empty($fullname_err)) ? 'is-invalid' : ''; ?>"
-                   value="<?php echo $fullname; ?>">
+            <label>
+                <input type="text" name="fullname" placeholder="Nhập họ và tên"
+                       class="form-control <?php echo (!empty($fullname_err)) ? 'is-invalid' : ''; ?>"
+                       value="<?php echo $fullname; ?>">
+            </label>
             <span class="invalid-feedback"><?php echo $fullname_err; ?></span>
         </div>
 
         <div class="form-group">
             <label>Giới tính</label>
-            <select name="gender"
-                    class="custom-select mr-sm-2 <?php echo (!empty($gender_err)) ? 'is-invalid' : ''; ?>">
-                <option disabled selected hidden>
-                    Chọn giới tính
-                </option>
-                <option value="male" <?php echo $gender; ?>>Nam</option>
-                <option value="female" <?php echo $gender; ?>>Nữ</option>
-            </select>
+            <label>
+                <select name="gender"
+                        class="custom-select mr-sm-2 <?php echo (!empty($gender_err)) ? 'is-invalid' : ''; ?>">
+                    <option disabled selected hidden>
+                        Chọn giới tính
+                    </option>
+                    <option value="male" <?php echo $gender; ?>>Nam</option>
+                    <option value="female" <?php echo $gender; ?>>Nữ</option>
+                </select>
+            </label>
             <span class="invalid-feedback"><?php echo $gender_err; ?></span>
         </div>
 
 
         <div class="form-group">
             <label>Mật khẩu</label>
-            <input type="password" name="password" placeholder="Nhập mật khẩu"
-                   class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
-                   value="<?php echo $password; ?>">
+            <label>
+                <input type="password" name="password" placeholder="Nhập mật khẩu"
+                       class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
+                       value="<?php echo $password; ?>">
+            </label>
             <span class="invalid-feedback"><?php echo $password_err; ?></span>
         </div>
 
         <div class="form-group">
             <label>Xác nhận mật khẩu</label>
-            <input type="password" name="confirm_password" placeholder="Nhập lại mật khẩu"
-                   class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>"
-                   value="<?php echo $confirm_password; ?>">
+            <label>
+                <input type="password" name="confirm_password" placeholder="Nhập lại mật khẩu"
+                       class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>"
+                       value="<?php echo $confirm_password; ?>">
+            </label>
             <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
         </div>
 
         <div class="form-group">
             <label>Chức vụ</label>
-            <select name="role"
-                    class="custom-select mr-sm-2 <?php echo (!empty($role_err)) ? 'is-invalid' : ''; ?>">
-                <option disabled selected hidden>
-                    Chọn chức vụ
-                </option>
-                <option value="admin" <?php echo $role; ?>>Quản trị viên</option>
-                <option value="staff" <?php echo $role; ?>>Nhân viên</option>
-                <option value="customer" <?php echo $role; ?>>Khách hàng</option>
-            </select>
+            <label>
+                <select name="role"
+                        class="custom-select mr-sm-2 <?php echo (!empty($role_err)) ? 'is-invalid' : ''; ?>">
+                    <option disabled selected hidden>
+                        Chọn chức vụ
+                    </option>
+                    <option value="admin" <?php echo $role; ?>>Quản trị viên</option>
+                    <option value="staff" <?php echo $role; ?>>Nhân viên</option>
+                    <option value="customer" <?php echo $role; ?>>Khách hàng</option>
+                </select>
+            </label>
             <span class="invalid-feedback"><?php echo $role_err; ?></span>
         </div>
 
