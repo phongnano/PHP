@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 //            exit();
         } else {
             echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
-            echo pg_last_error($con);
+            echo pg_last_error($checkLogin);
         }
     } else {
         echo '<div class="alert alert-danger" role="alert">Tài khoản hoặc mật khẩu không đúng</div>';
