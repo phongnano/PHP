@@ -27,40 +27,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($username_error) && empty($password_error)) {
-        $query = "select username, password from users where username = '" . $username . "' and password = '" . $password . "'";
+        $query = "select username, password from users where username = '$username' and password = '$password'";
         $result = pg_query($con, $query);
         $checkLogin = pg_num_rows($result);
-        if ($checkLogin != 1) {
+        if ($checkLogin > 0) {
             echo '<div class="alert alert-danger" role="alert">Đăng nhập thành công</div>';
             header('location: welcome.php');
             exit();
         } else {
             echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
-            echo pg_numrows($result);
         }
     }
 }
-
-//if (isset($_POST['submit']) && !empty($_POST['submit'])) {
-//    $hashpassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-//    $sql = "select username, password from users where username = '$username' and password = '$hashpassword'";
-//    $data = pg_query($con, $sql);
-////    $login_check = pg_num_rows($data);
-////    if ($login_check > 0) {
-////        echo '<div class="alert alert-success" role="alert">OK</div>';
-////        header('location: welcome.php');
-////    } else {
-////        echo '<div class="alert alert-danger" role="alert">NOT OK</div>';
-////        header('location: index.php');
-////    }
-//    if (pg_num_rows($data) == 1) {
-//        echo '<div class="alert alert-success" role="alert">OK</div>';
-////            header('location: welcome.php');
-//    } else {
-//        echo '<div class="alert alert-danger" role="alert">NOT OK</div>';
-////            header('location: index.php');
-//    }
-//}
 ?>
 
 <!doctype html>
