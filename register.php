@@ -1,172 +1,102 @@
 <?php
-// Include config file
-require_once "connection.php";
+require 'connection.php';
 
-// Define variables and initialize with empty values
-//$username = $fullname = $gender = $birthday = $role = $password = $confirm_password = "";
-//$username_err = $fullname_err = $gender_err = $birthday_err = $role_err = $password_err = $confirm_password_err = "";
+$username = $fullname = $gender = $password = $confirm_password = $role = null;
+$username_error = $fullname_error = $gender_error = $password_error = $confirmpassword_error = $role_error = null;
 
-// Processing form data when form is submitted
-//if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-//    // Validate username
-//    if (empty(trim($_POST["username"]))) {
-//        $username_err = "Vui lòng nhập tài khoản";
-//    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
-//        $username_err = "Tài khoản chỉ có thể chứa chữ cái, số và dấu gạch dưới";
-//    } else {
-//        // Prepare a select statement
-//        $username = trim($_POST['username']);
-//        $username = trim($_POST['password']);
-//
-//        $sql = "select username from users where username = '" . $username . "'";
-//        $result = pg_query($link, $sql);
-//        $checkExistUsername = pg_num_rows($result);
-//        if ($checkExistUsername > 0) {
-//            $username_err = 'Tài khoản đã tồn tại';
-//        } else {
-//            $username = trim($_POST['username']);
-//        }
-//    }
-//
-//    if (empty(trim($_POST["fullname"]))) {
-//        $fullname_err = "Vui lòng nhập họ và tên";
-//    } elseif (!preg_match('/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỂẾưạảấầẩẫậắằẳẵặẹẻẽềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/', trim($_POST["fullname"]))) {
-//        $fullname_err = "Họ tên chỉ có thể chứa chữ cái";
-//    } else {
-//        $fullname = $_POST['fullname'];
-//    }
-//
-//    if (empty(trim($_POST['gender']))) {
-//        $gender_err = 'Vui lòng chọn giới tính';
-//    } else {
-//        $gender = $_POST['gender'];
-//        switch ($gender) {
-//            case 'male':
-//            {
-//                $gender = 0;
-//                break;
-//            }
-//            case 'female':
-//            {
-//                $gender = 1;
-//                break;
-//            }
-//        }
-//    }
-//
-//    if (empty(trim($_POST['role']))) {
-//        $role_err = 'Vui lòng chọn chức vụ';
-//    } else {
-//        $role = $_POST['role'];
-//        switch ($role) {
-//            case 'admin':
-//            {
-//                $role = 0;
-//                break;
-//            }
-//            case 'staff':
-//            {
-//                $role = 1;
-//                break;
-//            }
-//            case 'customer':
-//            {
-//                $role = 2;
-//                break;
-//            }
-//        }
-//    }
-//
-//
-//    if (empty(trim($_POST["password"]))) {
-//        $password_err = "Vui lòng nhập mật khẩu";
-//    } elseif (strlen(trim($_POST["password"])) < 6) {
-//        $password_err = "Mật khẩu phải ít nhất 6 ký tự";
-//    } else {
-//        $password = trim($_POST["password"]);
-//    }
-//
-//    if (empty(trim($_POST["confirm_password"]))) {
-//        $confirm_password_err = "Vui lòng xác nhận mật khẩu";
-//    } else {
-//        $confirm_password = trim($_POST["confirm_password"]);
-//        if (empty($password_err) && ($password != $confirm_password)) {
-//            $confirm_password_err = "Mật khẩu không khớp";
-//        }
-//    }
-
-//    if (empty($username_err) && empty($fullname_err) && empty($gender_err) && empty($password_err) && empty($confirm_password_err) && empty($role_err)) {
-//        $sql = "insert into users (username, fullname, gender, password, role) values ('" . $username . "','" . $_POST['fullname'] . "','" . $_POST['gender'] . "','" . $password . "','" . $_POST['role'] . "')";
-//        $result = pg_query($link, $sql);
-//
-//        if ($result) {
-//            echo '<script>alert("Đăng ký thành công");</script>';
-//            header("location: login.php");
-//        } else {
-//            echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . pg_result_error($result);
-//        }
-//    }
-
-
-$_username = $_POST['username'];
-$fullname = $_POST['fullname'];
-$gender = $_POST['gender'];
-$password = $_POST['password'];
-$role = $_POST['role'];
-
-if (!empty($username) && !empty($fullname) && !empty($gender) && !empty($password) && !empty($role)) {
-    switch ($gender) {
-        case 'male':
-        {
-            $gender = 0;
-            break;
-        }
-        case 'female':
-        {
-            $gender = 1;
-            break;
-        }
-    }
-
-    switch ($role) {
-        case 'admin':
-        {
-            $role = 0;
-            break;
-        }
-        case 'staff':
-        {
-            $role = 1;
-            break;
-        }
-        case 'customer':
-        {
-            $role = 2;
-            break;
-        }
-    }
-
-
-    $sql = "insert into users (username, fullname, gender, password, role) values ('" . $username . "', '" . $fullname . "', '" . $gender . "', '" . $password . "', '" . $role . "')";
-    $result = pg_query($link, $sql);
-
-    if ($result) {
-        echo '<script>alert("Đăng ký thành công");</script>';
-        header("location: login.php");
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (empty(trim($_POST['username']))) {
+        $username_error = 'Vui lòng nhập tài khoản';
     } else {
-        echo "Đã xảy ra lỗi. Vui lòng thử lại sau " . pg_result_error($result);
+        $username = trim($_POST['username']);
     }
-//    }
+
+    if (empty(trim($_POST['fullname']))) {
+        $fullname_error = 'Vui lòng nhập họ tên';
+    } else {
+        $fullname = trim($_POST['fullname']);
+    }
+
+    if (empty(trim($_POST['gender']))) {
+        $gender_error = 'Vui lòng nhập tài khoản';
+    } else {
+        $gender = trim($_POST['gender']);
+    }
+
+    if (empty(trim($_POST['password']))) {
+        $password_error = 'Vui lòng nhập tài khoản';
+    } else {
+        $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+    }
+
+    if (empty(trim($_POST['confirm_password']))) {
+        $confirmpassword_error = 'Vui lòng nhập tài khoản';
+    } else {
+        $confirm_password = trim($_POST['confirm_password']);
+    }
+
+    if (empty(trim($_POST['role']))) {
+        $role_error = 'Vui lòng nhập tài khoản';
+    } else {
+        $role = trim($_POST['role']);
+    }
+
+    if (empty($username_error) && empty($fullname_error) && empty($gender_error) && empty($password_error) && empty($confirmpassword_error) && empty($role_error)) {
+        switch ($gender) {
+            case 'male':
+            {
+                $gender = 0;
+                break;
+            }
+            case 'female':
+            {
+                $gender = 1;
+                break;
+            }
+        }
+
+        switch ($role) {
+            case 'admin':
+            {
+                $role = 0;
+                break;
+            }
+            case 'staff':
+            {
+                $role = 1;
+                break;
+            }
+            case 'customer':
+            {
+                $role = 2;
+                break;
+            }
+        }
+
+        $query = "insert into users (username, fullname, gender, password, role) values ('" . $username . "','" . $fullname . "','" . $gender . "','" . $password . "','" . $role . "')";
+        $result = pg_query($con, $query);
+        if ($result) {
+            echo '<div class="alert alert-success" role="alert">Đăng ký thành công</div>';
+        } else {
+            echo '<div class="alert alert-danger" role="alert">Đăng ký thất bại</div>';
+        }
+        pg_close($con);
+    }
 }
 ?>
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>ĐĂNG KÝ</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <style>
         body {
             font: 14px sans-serif;
@@ -178,57 +108,62 @@ if (!empty($username) && !empty($fullname) && !empty($gender) && !empty($passwor
         }
     </style>
 </head>
+
 <body>
 <div class="wrapper">
     <h2>Đăng Ký</h2>
     <p>Vui lòng điền vào biểu mẫu để tạo tài khoản</p>
-    <form method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <div class="form-group">
             <label>Tài khoản</label>
             <input type="text" name="username" placeholder="Nhập tài khoản"
-                   class="form-control">
-            <!--            <span class="invalid-feedback">--><?php //echo $username_err; ?><!--</span>-->
+                   class="form-control <?php echo (!empty($username_error)) ? 'is-invalid' : ''; ?>"
+                   value="<?php echo $username; ?>">
+            <span class="invalid-feedback"><?php echo $username_error; ?></span>
         </div>
 
         <div class="form-group">
             <label>Họ và tên</label>
             <input type="text" name="fullname" placeholder="Nhập họ và tên"
-                   class="form-control"
-            <!--            <span class="invalid-feedback">--><?php //echo $fullname_err; ?><!--</span>-->
+                   class="form-control <?php echo (!empty($fullname_error)) ? 'is-invalid' : ''; ?>"
+                   value="<?php echo $fullname; ?>">
+            <span class="invalid-feedback"><?php echo $fullname_error; ?></span>
         </div>
 
         <div class="form-group">
             <label>Giới tính</label>
             <select name="gender"
-                    class="custom-select mr-sm-2">
+                    class="custom-select mr-sm-2 <?php echo (!empty($gender_error)) ? 'is-invalid' : ''; ?>">
                 <option disabled selected hidden>
                     Chọn giới tính
                 </option>
                 <option value="male">Nam</option>
                 <option value="female">Nữ</option>
             </select>
-            <!--            <span class="invalid-feedback">--><?php //echo $gender_err; ?><!--</span>-->
+            <span class="invalid-feedback"><?php echo $gender_error; ?></span>
         </div>
 
 
         <div class="form-group">
             <label>Mật khẩu</label>
             <input type="password" name="password" placeholder="Nhập mật khẩu"
-                   class="form-control"
-            <!--            <span class="invalid-feedback">--><?php //echo $password_err; ?><!--</span>-->
+                   class="form-control <?php echo (!empty($password_error)) ? 'is-invalid' : ''; ?>"
+                   value="<?php echo $password; ?>">
+            <span class="invalid-feedback"><?php echo $password_error; ?></span>
         </div>
 
         <div class="form-group">
             <label>Xác nhận mật khẩu</label>
             <input type="password" name="confirm_password" placeholder="Nhập lại mật khẩu"
-                   class="form-control"
-            <!--            <span class="invalid-feedback">--><?php //echo $confirm_password_err; ?><!--</span>-->
+                   class="form-control <?php echo (!empty($confirmpassword_error)) ? 'is-invalid' : ''; ?>"
+                   value="<?php echo $confirm_password; ?>">
+            <span class="invalid-feedback"><?php echo $confirmpassword_error ?></span>
         </div>
 
         <div class="form-group">
             <label>Chức vụ</label>
             <select name="role"
-                    class="custom-select mr-sm-2 <?php echo (!empty($role_err)) ? 'is-invalid' : ''; ?>">
+                    class="custom-select mr-sm-2 <?php echo (!empty($role_error)) ? 'is-invalid' : ''; ?>">
                 <option disabled selected hidden>
                     Chọn chức vụ
                 </option>
@@ -236,15 +171,26 @@ if (!empty($username) && !empty($fullname) && !empty($gender) && !empty($passwor
                 <option value="staff">Nhân viên</option>
                 <option value="customer">Khách hàng</option>
             </select>
-            <span class="invalid-feedback"><?php echo $role_err; ?></span>
+            <span class="invalid-feedback"><?php echo $role_error; ?></span>
         </div>
 
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Đăng ký">
             <input type="reset" class="btn btn-secondary ml-2" value="Nhập lại">
         </div>
-        <p>Bạn đã có tài khoản? <a href="login.php">Đăng nhập ngay</a></p>
+        <p>Bạn đã có tài khoản? <a href="#">Đăng nhập ngay</a></p>
     </form>
 </div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>
