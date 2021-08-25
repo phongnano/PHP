@@ -200,7 +200,7 @@
 $dbconn = pg_connect('host=ec2-18-214-238-28.compute-1.amazonaws.com dbname=d9dhsg5pgvf1n2 user=fksksdukfwopjs password=4b18a5d24d326aebed06fd62df035a9541852c62f7045283483f8f21685718ef');
 if (isset($_POST['submit']) && !empty($_POST['submit'])) {
 
-    $sql = "insert into public.user(name,email,password,mobno)values('" . $_POST['name'] . "','" . $_POST['email'] . "','" . password_hash($_POST['pwd']) . "','" . $_POST['mobno'] . "')";
+    $sql = "insert into public.user(name,email,password,mobno)values('" . $_POST['name'] . "','" . $_POST['email'] . "','" . md5($_POST['pwd']) . "','" . $_POST['mobno'] . "')";
     $ret = pg_query($dbconn, $sql);
     if ($ret) {
         echo "Data saved Successfully";
