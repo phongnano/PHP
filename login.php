@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         } else {
             echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
+            echo pg_last_error($checkLogin);
         }
         pg_close($con);
     }
