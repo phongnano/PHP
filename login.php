@@ -35,11 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo '<div class="alert alert-danger" role="alert">Đăng nhập thành công</div>';
 //            header('location: welcome.php');
 //            exit();
+        } else {
+            echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
+            echo pg_last_error($con);
         }
     } else {
-        echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
+        echo '<div class="alert alert-danger" role="alert">Tài khoản hoặc mật khẩu không đúng</div>';
     }
-    echo pg_last_error($con);
 }
 ?>
 
