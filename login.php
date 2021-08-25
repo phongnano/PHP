@@ -41,7 +41,7 @@ $username_error = $password_error = null;
 //    }
 //}
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $hashpassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $sql = "select * from users where username = '" . $_POST['username'] . "' and password ='" . $hashpassword . "'";
     $data = pg_query($con, $sql);
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="wrapper">
     <h2>Đăng Nhập</h2>
     <p>Vui lòng điền vào biểu mẫu để đăng nhập</p>
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+    <form method="post">
         <div class="form-group">
             <label>Tài khoản</label>
             <input type="text" name="username" placeholder="Nhập tài khoản"
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Đăng nhập">
+            <input type="submit" name="submit" class="btn btn-primary" value="Đăng nhập">
             <input type="reset" class="btn btn-secondary ml-2" value="Nhập lại">
         </div>
         <p>Bạn đã chưa có tài khoản? <a href="register.php">Đăng ký ngay</a></p>
