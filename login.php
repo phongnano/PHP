@@ -31,18 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = pg_query($con, $query);
         $checkLogin = pg_num_rows($result);
         if ($checkLogin > 0) {
-            $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            if (password_verify($password, $hashed_password)) {
-                header('location: welcome.php');
-                exit();
-            } else {
-                echo '<div class="alert alert-danger" role="alert">Mật khẩu không đúng</div>';
-            }
-        } else {
-            echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
+            echo '<div class="alert alert-danger" role="alert">Đăng nhập thành công</div>';
+            header('location: welcome.php');
+            exit();
         }
-        pg_close($con);
+    } else {
+        echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
     }
+    pg_close($con);
 }
 ?>
 
