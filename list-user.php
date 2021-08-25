@@ -108,7 +108,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         echo '<td>' . $row['fullname'] . '</td>';
                         echo '<td>' . $gender . '</td>';
                         echo '<td>' . $role . '</td>';
-                        echo '<td>' . $row['created_at'] . '</td>';
                         echo '<td>';
                         echo '<a href="select-user.php?username=' . $row['username'] . '" class="mr-3" title="Xem" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
                         echo '<a href="update-password.php?username=' . $row['username'] . '" class="mr-3" title="Cập nhật" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
