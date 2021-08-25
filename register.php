@@ -5,40 +5,40 @@ $username = $fullname = $gender = $password = $confirm_password = $role = null;
 $username_error = $fullname_error = $gender_error = $password_error = $confirmpassword_error = $role_error = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (empty(trim($_POST['username']))) {
+    if (empty($_POST['username'])) {
         $username_error = 'Vui lòng nhập tài khoản';
     } else {
-        $username = trim($_POST['username']);
+        $username = $_POST['username'];
     }
 
     if (empty(trim($_POST['fullname']))) {
         $fullname_error = 'Vui lòng nhập họ tên';
     } else {
-        $fullname = trim($_POST['fullname']);
+        $fullname = $_POST['fullname'];
     }
 
-    if (empty(trim($_POST['gender']))) {
+    if (empty($_POST['gender'])) {
         $gender_error = 'Vui lòng chọn giới tính';
     } else {
-        $gender = trim($_POST['gender']);
+        $gender = $_POST['gender'];
     }
 
-    if (empty(trim($_POST['password']))) {
+    if (empty($_POST['password'])) {
         $password_error = 'Vui lòng nhập mật khẩu';
     } else {
-        $password = trim($_POST['password']);
+        $password = $_POST['password'];
     }
 
-    if (empty(trim($_POST['confirm_password']))) {
+    if (empty($_POST['confirm_password'])) {
         $confirmpassword_error = 'Vui lòng xác nhận mật khẩu';
     } else {
-        $confirm_password = trim($_POST['confirm_password']);
+        $confirm_password = $_POST['confirm_password'];
     }
 
-    if (empty(trim($_POST['role']))) {
+    if (empty($_POST['role'])) {
         $role_error = 'Vui lòng chọn chức vụ';
     } else {
-        $role = trim($_POST['role']);
+        $role = $_POST['role'];
     }
 
     if (empty($username_error) && empty($fullname_error) && empty($gender_error) && empty($password_error) && empty($confirmpassword_error) && empty($role_error)) {

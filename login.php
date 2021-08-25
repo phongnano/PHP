@@ -13,16 +13,16 @@ $username = $password = null;
 $username_error = $password_error = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (empty(trim($_POST['username']))) {
+    if (empty($_POST['username'])) {
         $username_error = 'Vui lòng nhập tài khoản';
     } else {
-        $username = trim($_POST['username']);
+        $username = $_POST['username'];
     }
 
-    if (empty(trim($_POST['password']))) {
+    if (empty($_POST['password'])) {
         $password_error = 'Vui lòng nhập mật khẩu';
     } else {
-        $password = trim($_POST['password']);
+        $password = $_POST['password'];
     }
 
     if (empty($username_error) && empty($password_error)) {
@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             echo '<div class="alert alert-danger" role="alert">Tài khoản hoặc mật khẩu không đúng</div>';
         }
+        pg_close($con);
     }
 }
 ?>
