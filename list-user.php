@@ -57,7 +57,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <?php
                 require_once 'connection.php';
 
-                $query = "select username, fullname, gender, role from users where username = '" . $username . "'";
+                $query = "select username, fullname, gender, role from users where username = '" . $_SESSION["username"] . "'";
                 $result = pg_query($con, $query);
                 if ($result) {
                     echo '<table class="table table-bordered table-striped table-hover">';
