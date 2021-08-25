@@ -77,8 +77,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = pg_query($con, $query);
         if ($result) {
             echo '<div class="alert alert-success" role="alert">Đăng ký thành công</div>';
+            header('location: login.php');
+            exit();
         } else {
-            echo '<div class="alert alert-danger" role="alert">Đăng ký thất bại</div>';
+            echo '<div class="alert alert-danger" role="alert">Đăng ký thất bại></div>';
         }
         pg_close($con);
     }
