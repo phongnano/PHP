@@ -4,6 +4,7 @@
     <data-source source="LOCAL" name="PostgreSQL - d9dhsg5pgvf1n2@ec2-18-214-238-28.compute-1.amazonaws.com" uuid="d992d957-da18-45bf-a524-ed7cb19f2253">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
+      <schema-control>MANUAL</schema-control>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://ec2-18-214-238-28.compute-1.amazonaws.com:5432/d9dhsg5pgvf1n2</jdbc-url>
       <driver-properties>

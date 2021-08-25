@@ -76,7 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $query = "insert into users (username, fullname, gender, password, role) values ('" . $username . "','" . $fullname . "','" . $gender . "','" . $password . "','" . $role . "')";
         $result = pg_query($con, $query);
         if ($result) {
-            echo '<div class="alert alert-success" role="alert">Đăng ký thành công</div>';
             header('location: login.php');
             exit();
         } else {
