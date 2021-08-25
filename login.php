@@ -51,6 +51,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     } else {
 
         echo '<div class="alert alert-danger" role="alert">NOT OK</div>';
+        echo $login_check;
     }
 }
 ?>
@@ -88,14 +89,14 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
             <label>Tài khoản</label>
             <input type="text" name="username" placeholder="Nhập tài khoản"
                    class="form-control">
-<!--            <span class="invalid-feedback">--><?php //echo $username_error; ?><!--</span>-->
+            <!--            <span class="invalid-feedback">--><?php //echo $username_error; ?><!--</span>-->
         </div>
 
         <div class="form-group">
             <label>Mật khẩu</label>
             <input type="password" name="password" placeholder="Nhập mật khẩu"
                    class="form-control">
-<!--            <span class="invalid-feedback">--><?php //echo $password_error; ?><!--</span>-->
+            <!--            <span class="invalid-feedback">--><?php //echo $password_error; ?><!--</span>-->
         </div>
 
         <div class="form-group">
