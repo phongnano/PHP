@@ -54,18 +54,11 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
 //        header('location: index.php');
 //    }
     if (pg_num_rows($data) == 1) {
-        $row = pg_fetch_assoc($data);
-        if ($row['username'] == $username && $row['password'] == $hashpassword) {
-            echo '<div class="alert alert-success" role="alert">OK</div>';
-            echo $row['username'];
-            echo $row['password'];
+        echo '<div class="alert alert-success" role="alert">OK</div>';
 //            header('location: welcome.php');
-        } else {
-            echo '<div class="alert alert-danger" role="alert">NOT OK</div>';
-            echo $row['username'];
-            echo $row['password'];
+    } else {
+        echo '<div class="alert alert-danger" role="alert">NOT OK</div>';
 //            header('location: index.php');
-        }
     }
 }
 ?>
