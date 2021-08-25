@@ -13,54 +13,54 @@ require_once 'connection.php';
 $username = $password = null;
 $username_error = $password_error = null;
 
-//if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//    if (empty(trim($_POST['username']))) {
-//        $username_error = 'Vui lòng nhập tài khoản';
-//    } else {
-//        $username = trim($_POST['username']);
-//    }
-//
-//    if (empty(trim($_POST['password']))) {
-//        $password_error = 'Vui lòng nhập mật khẩu';
-//    } else {
-//        $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
-//    }
-//
-//    if (empty($username_error) && empty($password_error)) {
-//        $query = "select * from users where username = '" . $username . "' and password = '" . $password . "'";
-//        $result = pg_query($con, $query);
-//        $checkLogin = pg_num_rows($result);
-//        if ($checkLogin != 1) {
-//            echo '<div class="alert alert-danger" role="alert">Đăng nhập thành công</div>';
-//            header('location: welcome.php');
-//            exit();
-//        } else {
-//            echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
-//            echo pg_numrows($result);
-//        }
-//    }
-//}
-
-if (isset($_POST['submit']) && !empty($_POST['submit'])) {
-    $hashpassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $sql = "select username, password from users where username = '$username' and password = '$hashpassword'";
-    $data = pg_query($con, $sql);
-//    $login_check = pg_num_rows($data);
-//    if ($login_check > 0) {
-//        echo '<div class="alert alert-success" role="alert">OK</div>';
-//        header('location: welcome.php');
-//    } else {
-//        echo '<div class="alert alert-danger" role="alert">NOT OK</div>';
-//        header('location: index.php');
-//    }
-    if (pg_num_rows($data) == 1) {
-        echo '<div class="alert alert-success" role="alert">OK</div>';
-//            header('location: welcome.php');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (empty(trim($_POST['username']))) {
+        $username_error = 'Vui lòng nhập tài khoản';
     } else {
-        echo '<div class="alert alert-danger" role="alert">NOT OK</div>';
-//            header('location: index.php');
+        $username = trim($_POST['username']);
+    }
+
+    if (empty(trim($_POST['password']))) {
+        $password_error = 'Vui lòng nhập mật khẩu';
+    } else {
+        $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+    }
+
+    if (empty($username_error) && empty($password_error)) {
+        $query = "select username, password from users where username = '" . $username . "' and password = '" . $password . "'";
+        $result = pg_query($con, $query);
+        $checkLogin = pg_num_rows($result);
+        if ($checkLogin != 1) {
+            echo '<div class="alert alert-danger" role="alert">Đăng nhập thành công</div>';
+            header('location: welcome.php');
+            exit();
+        } else {
+            echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
+            echo pg_numrows($result);
+        }
     }
 }
+
+//if (isset($_POST['submit']) && !empty($_POST['submit'])) {
+//    $hashpassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+//    $sql = "select username, password from users where username = '$username' and password = '$hashpassword'";
+//    $data = pg_query($con, $sql);
+////    $login_check = pg_num_rows($data);
+////    if ($login_check > 0) {
+////        echo '<div class="alert alert-success" role="alert">OK</div>';
+////        header('location: welcome.php');
+////    } else {
+////        echo '<div class="alert alert-danger" role="alert">NOT OK</div>';
+////        header('location: index.php');
+////    }
+//    if (pg_num_rows($data) == 1) {
+//        echo '<div class="alert alert-success" role="alert">OK</div>';
+////            header('location: welcome.php');
+//    } else {
+//        echo '<div class="alert alert-danger" role="alert">NOT OK</div>';
+////            header('location: index.php');
+//    }
+//}
 ?>
 
 <!doctype html>
@@ -91,19 +91,21 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
 <div class="wrapper">
     <h2>Đăng Nhập</h2>
     <p>Vui lòng điền vào biểu mẫu để đăng nhập</p>
-    <form method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <div class="form-group">
             <label>Tài khoản</label>
             <input type="text" name="username" placeholder="Nhập tài khoản"
-                   class="form-control">
-            <!--            <span class="invalid-feedback">--><?php //echo $username_error; ?><!--</span>-->
+                   class="form-control <?php echo (!empty($username_error)) ? 'is-invalid' : ''; ?>"
+                   value="<?php echo $username; ?>">
+            <span class="invalid-feedback"><?php echo $username_error; ?></span>
         </div>
 
         <div class="form-group">
             <label>Mật khẩu</label>
             <input type="password" name="password" placeholder="Nhập mật khẩu"
-                   class="form-control">
-            <!--            <span class="invalid-feedback">--><?php //echo $password_error; ?><!--</span>-->
+                   class="form-control <?php echo (!empty($password_error)) ? 'is-invalid' : ''; ?>"
+                   value="<?php echo $password; ?>">
+            <span class="invalid-feedback"><?php echo $password_error; ?></span>
         </div>
 
         <div class="form-group">
