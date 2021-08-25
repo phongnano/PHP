@@ -36,10 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         } else {
             echo '<div class="alert alert-danger" role="alert">Tài khoản hoặc mật khẩu không đúng</div>';
-            echo $password;
+            header('location: index.php');
+            exit();
         }
     } else {
         echo '<div class="alert alert-danger" role="alert">Tài khoản hoặc mật khẩu không được bỏ trống</div>';
+        header('location: register.php');
+        exit();
     }
 }
 ?>
