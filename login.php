@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($username_error) && empty($password_error)) {
         $hashed_password = md5($password);
-        $query = "select username, password from users where username = '" . $username . "' and password = '" . $hashed_password . "'";
+        $query = "select * from users where username = '" . pg_escape_string($username) . "' and password = '" . $hashed_password . "'";
         $result = pg_query($con, $query);
         $checkLogin = pg_num_rows($result);
         if ($checkLogin > 0) {
