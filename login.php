@@ -10,125 +10,49 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
 require_once 'connection.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $username = $_POST['password'];
+$username = $password = null;
+$username_error = $password_error = $login_error = null;
 
-    $query = pg_query($link, "select username, password from users u where u.username = '" . $username . "' and password = '" . $password . "'");
-    if ($query) {
-        echo "<script>alert('<?php echo $password;?>');</script>";
-        header('location: index.php');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (empty(trim($_POST['username']))) {
+        $username_error = 'Vui lòng nhập tài khoản';
     } else {
-        echo pg_result_error($query);
+        $username = trim($_POST['username']);
+    }
+
+    if (empty(trim($_POST['password']))) {
+        $password_error = 'Vui lòng nhập mật khẩu';
+    } else {
+        $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+    }
+
+    if (empty($username_error) && empty($password_error)) {
+        $query = "select username, password from users where username = '" . $username . "' and password = '" . $password . "'";
+        $result = pg_query($con, $query);
+        if ($query) {
+            echo '<div class="alert alert-success" role="alert">Đăng ký nhập công</div>';
+            header('location: welcome.php');
+            exit();
+        } else {
+            echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
+        }
+        pg_close($con);
     }
 }
-
-//// Include config file
-//require_once "process/connection.php";
-//
-//// Define variables and initialize with empty values
-//$username = $password = null;
-//$username_err = $password_err = $login_err = null;
-//
-//// Processing form data when form is submitted
-//if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//
-//    // Check if username is empty
-//    if (empty(trim($_POST["username"]))) {
-//        $username_err = "Vui lòng nhập tài khoản";
-//    } else {
-//        $username = trim($_POST["username"]);
-//    }
-//
-//    // Check if password is empty
-//    if (empty(trim($_POST["password"]))) {
-//        $password_err = "Vui lòng nhập mật khẩu";
-//    } else {
-//        $password = trim($_POST["password"]);
-//    }
-//
-//    // Validate credentials
-//    if (empty($username_err) && empty($password_err)) {
-//        // Prepare a select statement
-//        $sql = "select username, fullname, password, role from users where username = ?";
-//
-//        if ($stmt = mysqli_prepare($link, $sql)) {
-//            // Bind variables to the prepared statement as parameters
-//            mysqli_stmt_bind_param($stmt, "s", $param_username);
-//
-//            // Set parameters
-//            $param_username = $username;
-//
-//            // Attempt to execute the prepared statement
-//            if (mysqli_stmt_execute($stmt)) {
-//                // Store result
-//                mysqli_stmt_store_result($stmt);
-//
-//                // Check if username exists, if yes then verify password
-//                if (mysqli_stmt_num_rows($stmt) == 1) {
-//                    // Bind result variables
-//
-//                    mysqli_stmt_bind_result($stmt, $username, $fullname, $hashed_password, $role);
-//                    if (mysqli_stmt_fetch($stmt)) {
-//                        if (password_verify($password, $hashed_password)) {
-//                            // Password is correct, so start a new session
-//
-//                            session_start();
-//
-//                            // Store data in session variables
-//                            $_SESSION["loggedin"] = true;
-//                            $_SESSION["username"] = $username;
-//                            $_SESSION["fullname"] = $fullname;
-//                            $_SESSION["role"] = $role;
-//                            $_SESSION["password"] = $password;
-//
-////                            $permission = $_SESSION['role'];
-////
-////                            switch ($permission) {
-////                                case 0:
-////                                {
-////                                    header("location: welcome.php");
-////                                    break;
-////                                }
-////                                case 1:
-////                                {
-////                                    session_destroy();
-////                                    header("location: index.php");
-////                                    break;
-////                                }
-////                            }
-//
-//                            // Redirect user to welcome page
-//                            header("location: welcome.php");
-//                        } else {
-//                            // Password is not valid, display a generic error message
-//                            $login_err = "Mật khẩu không hợp lệ";
-//                        }
-//                    }
-//                } else {
-//                    // Username doesn't exist, display a generic error message
-//                    $login_err = "Tài khoản không tồn tại";
-//                }
-//            } else {
-//                echo "Đã xảy ra lỗi. Vui lòng thử lại sau";
-//            }
-//
-//            // Close statement
-//            mysqli_stmt_close($stmt);
-//        }
-//    }
-//
-//    // Close connection
-//    mysqli_close($link);
-//}
 ?>
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>ĐĂNG NHẬP</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <style>
         body {
             font: 14px sans-serif;
@@ -140,34 +64,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     </style>
 </head>
+
 <body>
 <div class="wrapper">
     <h2>Đăng Nhập</h2>
     <p>Vui lòng điền vào biểu mẫu để đăng nhập</p>
-
-    <?php
-    if (!empty($login_err)) {
-        echo '<div class="alert alert-danger">' . $login_err . '</div>';
-    }
-    ?>
-
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <div class="form-group">
             <label>Tài khoản</label>
-            <input type="text" name="username" class="form-control">
-            <!--            <span class="invalid-feedback">--><?php //echo $username_err; ?><!--</span>-->
+            <input type="text" name="username" placeholder="Nhập tài khoản"
+                   class="form-control <?php echo (!empty($username_error)) ? 'is-invalid' : ''; ?>"
+                   value="<?php echo $username; ?>">
+            <span class="invalid-feedback"><?php echo $username_error; ?></span>
         </div>
+
         <div class="form-group">
             <label>Mật khẩu</label>
-            <input type="password" name="password" class="form-control">
-            <!--            <span class="invalid-feedback">--><?php //echo $password_err; ?><!--</span>-->
+            <input type="password" name="password" placeholder="Nhập mật khẩu"
+                   class="form-control <?php echo (!empty($password_error)) ? 'is-invalid' : ''; ?>"
+                   value="<?php echo $password; ?>">
+            <span class="invalid-feedback"><?php echo $password_error; ?></span>
         </div>
+
         <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Đăng nhập">
-            <a class="btn btn-danger ml-5" href="index.php" role="button" id="login">Quay về</a>
+            <input type="submit" class="btn btn-primary" value="Đăng ký">
+            <input type="reset" class="btn btn-secondary ml-2" value="Nhập lại">
         </div>
-        <p>Bạn chưa có tài khoản? <a href="register.php">Đăng ký ngay</a></p>
+        <p>Bạn đã chưa có tài khoản? <a href="register.php">Đăng ký ngay</a></p>
     </form>
 </div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

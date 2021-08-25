@@ -18,25 +18,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty(trim($_POST['gender']))) {
-        $gender_error = 'Vui lòng nhập tài khoản';
+        $gender_error = 'Vui lòng chọn giới tính';
     } else {
         $gender = trim($_POST['gender']);
     }
 
     if (empty(trim($_POST['password']))) {
-        $password_error = 'Vui lòng nhập tài khoản';
+        $password_error = 'Vui lòng nhập mật khẩu';
     } else {
         $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
     }
 
     if (empty(trim($_POST['confirm_password']))) {
-        $confirmpassword_error = 'Vui lòng nhập tài khoản';
+        $confirmpassword_error = 'Vui lòng xác nhận mật khẩu';
     } else {
         $confirm_password = trim($_POST['confirm_password']);
     }
 
     if (empty(trim($_POST['role']))) {
-        $role_error = 'Vui lòng nhập tài khoản';
+        $role_error = 'Vui lòng chọn chức vụ';
     } else {
         $role = trim($_POST['role']);
     }
