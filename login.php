@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
     }
+    pg_errormessage();
 }
 ?>
 
