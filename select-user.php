@@ -10,8 +10,41 @@ if (isset($_GET["username"]) && !empty(trim($_GET["username"]))) {
     $result = pg_query($con, $query);
 
     while ($row = pg_fetch_assoc($result)) {
-        echo $row['username'] . ' - ' . $row['fullname'] . ' - ' . $row['gender'] . ' - ' . $row['role'];
-        echo '\n';
+        $username = $row["username"];
+        $fullname = $row["fullname"];
+        
+        $gender = $row["gender"];
+        switch ($gender) {
+            case 0:
+            {
+                $gender = 'Nam';
+                break;
+            }
+            case 1:
+            {
+                $gender = 'Nữ';
+                break;
+            }
+        }
+
+        $role = $row['role'];
+        switch ($role) {
+            case 0:
+            {
+                $role = 'Quản trị viên';
+                break;
+            }
+            case 1:
+            {
+                $role = 'Nhân viên';
+                break;
+            }
+            case 2:
+            {
+                $role = 'Khách hàng';
+                break;
+            }
+        }
     }
     pg_close($con);
 }
@@ -80,12 +113,12 @@ if (isset($_GET["username"]) && !empty(trim($_GET["username"]))) {
                 <h1 class="mt-5 mb-3" align="center">Danh Sách Người Dùng</h1>
                 <div class="form-group">
                     <label><b style="color: green">Tài khoản</b></label>
-                    <p><?php echo $row["username"]; ?></p>
+                    <p><?php echo $username; ?></p>
                 </div>
                 <br>
                 <div class="form-group">
                     <label><b style="color: green">Họ và tên</b></label>
-                    <p><?php echo $row["fullname"]; ?></p>
+                    <p><?php echo $fullname; ?></p>
                 </div>
                 <br>
                 <div class="form-group">
