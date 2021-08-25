@@ -47,10 +47,10 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $login_check = pg_num_rows($data);
     if ($login_check > 0) {
 
-        echo "Login Successfully";
+        echo '<div class="alert alert-success" role="alert">OK</div>';
     } else {
 
-        echo "Invalid Details";
+        echo '<div class="alert alert-danger" role="alert">NOT OK</div>';
     }
 }
 ?>
