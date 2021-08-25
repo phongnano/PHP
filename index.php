@@ -12,7 +12,6 @@
 </head>
 <body>
 
-<h1 class="my-5">Xin chào đến với website của chúng tôi</h1>
 <nav class="navbar navbar-expand-md navbar-expand bg-light mb-3">
     <div class="container-fluid">
         <a href="index.php" class="navbar-brand mr-3">ABC</a>

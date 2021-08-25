@@ -1,99 +1,71 @@
 <?php
-// Check existence of id parameter before processing further
+
 if (isset($_GET["username"]) && !empty(trim($_GET["username"]))) {
-    // Include config file
-    require_once "process/connection.php";
 
-    // Prepare a select statement
-    $sql = "SELECT * FROM users WHERE username = ?";
+    require_once "connection.php";
 
-    if ($stmt = mysqli_prepare($link, $sql)) {
-        // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "s", $param_username);
+    $username = trim($_GET['username']);
 
-        // Set parameters
-        $param_username = trim($_GET["username"]);
+    $sql = "select username, fullname, gender, role from users where username = '" . $username . "'";
 
-        // Attempt to execute the prepared statement
-        if (mysqli_stmt_execute($stmt)) {
-            $result = mysqli_stmt_get_result($stmt);
+    $result = pg_query($con, $query);
+    if ($result) {
+        while ($row = pg_fetch_array($result)) {
+            $username = $row["username"];
+            $fullname = $row["fullname"];
+            $gender = $row["gender"];
+            $role = $row["role"];
 
-            if (mysqli_num_rows($result) == 1) {
-                /* Fetch result row as an associative array. Since the result set
-                contains only one row, we don't need to use while loop */
-                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-                // Retrieve individual field value
-                $username = $row["username"];
-                $fullname = $row["fullname"];
-                $gender = $row["gender"];
-                $role = $row["role"];
-
-                switch ($gender) {
-                    case 0:
-                    {
-                        $gender = 'Nam';
-                        break;
-                    }
-                    case 1:
-                    {
-                        $gender = 'Nữ';
-                        break;
-                    }
+            switch ($gender) {
+                case 0:
+                {
+                    $gender = 'Nam';
+                    break;
                 }
-
-                switch ($role) {
-                    case 0:
-                    {
-                        $role = 'Quản trị viên';
-                        break;
-                    }
-                    case 1:
-                    {
-                        $role = 'Nhân viên';
-                        break;
-                    }
-                    case 2:
-                    {
-                        $role = 'Khách hàng';
-                        break;
-                    }
+                case 1:
+                {
+                    $gender = 'Nữ';
+                    break;
                 }
-            } else {
-                // URL doesn't contain valid id parameter. Redirect to error page
-                header("location: error.php");
-                exit();
             }
-
-        } else {
-            echo 'Đã xảy ra lỗi. Vui lòng thử lại sau';
+            $role = $row['role'];
+            switch ($role) {
+                case 0:
+                {
+                    $role = 'Quản trị viên';
+                    break;
+                }
+                case 1:
+                {
+                    $role = 'Nhân viên';
+                    break;
+                }
+                case 2:
+                {
+                    $role = 'Khách hàng';
+                    break;
+                }
+            }
         }
     }
-
-    // Close statement
-    mysqli_stmt_close($stmt);
-
-    // Close connection
-    mysqli_close($link);
+    pg_close($con);
 } else {
-    // URL doesn't contain id parameter. Redirect to error page
     header("location: error.php");
     exit();
 }
 ?>
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>View Record</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .wrapper {
-            width: 600px;
-            margin: 0 auto;
-        }
-    </style>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <div class="wrapper">
@@ -125,5 +97,16 @@ if (isset($_GET["username"]) && !empty(trim($_GET["username"]))) {
         </div>
     </div>
 </div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>
