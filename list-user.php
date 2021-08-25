@@ -71,7 +71,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     echo '</tr>';
                     echo '</thead>';
                     echo '<tbody>';
-                    while ($row = pg_fetch_all($result)) {
+                    while ($row = pg_fetch_array($result)) {
                         $gender = $row['gender'];
                         switch ($gender) {
                             case 0:
