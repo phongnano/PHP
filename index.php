@@ -46,9 +46,10 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     if ($login_check > 0) {
 
         echo "Login Successfully";
+        echo $login_check;
     } else {
-
         echo "Invalid Details";
+        echo $login_check;
     }
 }
 ?>
