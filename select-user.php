@@ -6,53 +6,58 @@ if (isset($_GET["username"]) && !empty(trim($_GET["username"]))) {
 
     $username = trim($_GET['username']);
 
-    $sql = "select username, fullname, gender, role from users where username = '" . $username . "'";
-
+    $query = "select username, fullname, gender, role from users where username = '" . $username . "'";
     $result = pg_query($con, $query);
-    if ($result) {
-        while ($row = pg_fetch_array($result)) {
-            $username = $row["username"];
-            $fullname = $row["fullname"];
-            $gender = $row["gender"];
-            $role = $row["role"];
 
-            switch ($gender) {
-                case 0:
-                {
-                    $gender = 'Nam';
-                    break;
-                }
-                case 1:
-                {
-                    $gender = 'Nữ';
-                    break;
-                }
-            }
-            $role = $row['role'];
-            switch ($role) {
-                case 0:
-                {
-                    $role = 'Quản trị viên';
-                    break;
-                }
-                case 1:
-                {
-                    $role = 'Nhân viên';
-                    break;
-                }
-                case 2:
-                {
-                    $role = 'Khách hàng';
-                    break;
-                }
-            }
-        }
+    while ($row = pg_fetch_assoc($result)) {
+        echo $row['username'] . ' - ' . $row['fullname'] . ' - ' . $row['gender'] . ' - ' . $row['role'];
+        echo '\n';
     }
     pg_close($con);
-} else {
-    header("location: error.php");
-    exit();
 }
+//    $result = pg_query($con, $query);
+//        while ($row = pg_fetch_array($result)) {
+//            $username = $row["username"];
+//            $fullname = $row["fullname"];
+//            $gender = $row["gender"];
+//            $role = $row["role"];
+//
+//            switch ($gender) {
+//                case 0:
+//                {
+//                    $gender = 'Nam';
+//                    break;
+//                }
+//                case 1:
+//                {
+//                    $gender = 'Nữ';
+//                    break;
+//                }
+//            }
+//            $role = $row['role'];
+//            switch ($role) {
+//                case 0:
+//                {
+//                    $role = 'Quản trị viên';
+//                    break;
+//                }
+//                case 1:
+//                {
+//                    $role = 'Nhân viên';
+//                    break;
+//                }
+//                case 2:
+//                {
+//                    $role = 'Khách hàng';
+//                    break;
+//                }
+//            }
+//        }
+//    pg_close($con);
+//} else {
+//    header("location: error.php");
+//    exit();
+//}
 ?>
 
 <!doctype html>
