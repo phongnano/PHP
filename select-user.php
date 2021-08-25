@@ -12,7 +12,7 @@ if (isset($_GET["username"]) && !empty(trim($_GET["username"]))) {
     while ($row = pg_fetch_assoc($result)) {
         $username = $row["username"];
         $fullname = $row["fullname"];
-        
+
         $gender = $row["gender"];
         switch ($gender) {
             case 0:
@@ -48,49 +48,6 @@ if (isset($_GET["username"]) && !empty(trim($_GET["username"]))) {
     }
     pg_close($con);
 }
-//    $result = pg_query($con, $query);
-//        while ($row = pg_fetch_array($result)) {
-//            $username = $row["username"];
-//            $fullname = $row["fullname"];
-//            $gender = $row["gender"];
-//            $role = $row["role"];
-//
-//            switch ($gender) {
-//                case 0:
-//                {
-//                    $gender = 'Nam';
-//                    break;
-//                }
-//                case 1:
-//                {
-//                    $gender = 'Nữ';
-//                    break;
-//                }
-//            }
-//            $role = $row['role'];
-//            switch ($role) {
-//                case 0:
-//                {
-//                    $role = 'Quản trị viên';
-//                    break;
-//                }
-//                case 1:
-//                {
-//                    $role = 'Nhân viên';
-//                    break;
-//                }
-//                case 2:
-//                {
-//                    $role = 'Khách hàng';
-//                    break;
-//                }
-//            }
-//        }
-//    pg_close($con);
-//} else {
-//    header("location: error.php");
-//    exit();
-//}
 ?>
 
 <!doctype html>
