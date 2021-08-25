@@ -41,7 +41,7 @@ require 'connection.php';
 
 if (isset($_POST['submit']) && !empty($_POST['submit'])) {
 
-    $hashpassword = md5($_POST['pwd']);
+    $hashpassword = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
     $sql = "select * from user where username = '" . pg_escape_string($_POST['usr']) . "' and password ='" . $hashpassword . "'";
     $data = pg_query($con, $sql);
     $login_check = pg_num_rows($data);
