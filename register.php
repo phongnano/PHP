@@ -5,40 +5,40 @@ $username = $fullname = $gender = $password = $confirm_password = $role = null;
 $username_error = $fullname_error = $gender_error = $password_error = $confirmpassword_error = $role_error = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (empty($_POST['username'])) {
+    if (empty(trim($_POST['username']))) {
         $username_error = 'Vui lòng nhập tài khoản';
     } else {
-        $username = $_POST['username'];
+        $username = trim($_POST['username']);
     }
 
     if (empty(trim($_POST['fullname']))) {
         $fullname_error = 'Vui lòng nhập họ tên';
     } else {
-        $fullname = $_POST['fullname'];
+        $fullname = trim($_POST['fullname']);
     }
 
-    if (empty($_POST['gender'])) {
+    if (empty(trim($_POST['gender']))) {
         $gender_error = 'Vui lòng chọn giới tính';
     } else {
-        $gender = $_POST['gender'];
+        $gender = trim($_POST['gender']);
     }
 
-    if (empty($_POST['password'])) {
+    if (empty(trim($_POST['password']))) {
         $password_error = 'Vui lòng nhập mật khẩu';
     } else {
-        $password = $_POST['password'];
+        $password = trim($_POST['password']);
     }
 
-    if (empty($_POST['confirm_password'])) {
+    if (empty(trim($_POST['confirm_password']))) {
         $confirmpassword_error = 'Vui lòng xác nhận mật khẩu';
     } else {
-        $confirm_password = $_POST['confirm_password'];
+        $confirm_password = trim($_POST['confirm_password']);
     }
 
-    if (empty($_POST['role'])) {
+    if (empty(trim($_POST['role']))) {
         $role_error = 'Vui lòng chọn chức vụ';
     } else {
-        $role = $_POST['role'];
+        $role = trim($_POST['role']);
     }
 
     if (empty($username_error) && empty($fullname_error) && empty($gender_error) && empty($password_error) && empty($confirmpassword_error) && empty($role_error)) {
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        $query = "insert into users (username, fullname, gender, password, role) values ('" . $username . "', '" . $fullname . "', '" . $gender . "', '" . md5($password) . "', '" . $role . "')";
+        $query = "insert into users (username, fullname, gender, password, role) values ('" . $username . "', '" . $fullname . "', '" . $gender . "', '" . password_hash($password, PASSWORD_DEFAULT) . "', '" . $role . "')";
         $result = pg_query($con, $query);
         if ($result) {
             header('location: login.php');
@@ -194,63 +194,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         crossorigin="anonymous"></script>
 </body>
 </html>
-
-<?php
-//$dbconn = pg_connect('host=ec2-18-214-238-28.compute-1.amazonaws.com dbname=d9dhsg5pgvf1n2 user=fksksdukfwopjs password=4b18a5d24d326aebed06fd62df035a9541852c62f7045283483f8f21685718ef');
-//if (isset($_POST['submit']) && !empty($_POST['submit'])) {
-//
-//    $sql = "insert into public.user(name,email,password,mobno)values('" . $_POST['name'] . "','" . $_POST['email'] . "','" . md5($_POST['pwd']) . "','" . $_POST['mobno'] . "')";
-//    $ret = pg_query($dbconn, $sql);
-//    if ($ret) {
-//        echo "Data saved Successfully";
-//        header('location: login.php');
-//        exit();
-//    } else {
-//        echo "Soething Went Wrong";
-//    }
-//}
-//?>
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <title>PHP PostgreSQL Registration & Login Example </title>-->
-<!--    <meta name="keywords" content="PHP,PostgreSQL,Insert,Login">-->
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
-<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="container">-->
-<!--    <h2>Register Here </h2>-->
-<!--    <form method="post">-->
-<!---->
-<!--        <div class="form-group">-->
-<!--            <label for="name">Name:</label>-->
-<!--            <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" requuired>-->
-<!--        </div>-->
-<!---->
-<!--        <div class="form-group">-->
-<!--            <label for="email">Email:</label>-->
-<!--            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">-->
-<!--        </div>-->
-<!---->
-<!--        <div class="form-group">-->
-<!--            <label for="pwd">Mobile No:</label>-->
-<!--            <input type="number" class="form-control" maxlength="10" id="mobileno" placeholder="Enter Mobile Number"-->
-<!--                   name="mobno">-->
-<!--        </div>-->
-<!---->
-<!--        <div class="form-group">-->
-<!--            <label for="pwd">Password:</label>-->
-<!--            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">-->
-<!--        </div>-->
-<!---->
-<!--        <input type="submit" name="submit" class="btn btn-primary" value="Submit">-->
-<!--    </form>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->
-<!---->
-
-
-

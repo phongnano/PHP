@@ -13,21 +13,20 @@ $username = $password = null;
 $username_error = $password_error = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (empty($_POST['username'])) {
+    if (empty(trim($_POST['username']))) {
         $username_error = 'Vui lòng nhập tài khoản';
     } else {
-        $username = $_POST['username'];
+        $username = trim($_POST['username']);
     }
 
-    if (empty($_POST['password'])) {
+    if (empty(trim($_POST['password']))) {
         $password_error = 'Vui lòng nhập mật khẩu';
     } else {
-        $password = $_POST['password'];
+        $password = password_hash(trim($_POST['password'], PASSWORD_DEFAULT));
     }
 
     if (empty($username_error) && empty($password_error)) {
-        $hashed_password = md5($password);
-        $query = "select * from users where username = '" . $username . "' and password = '" . $hashed_password . "'";
+        $query = "select * from users where username = '" . $username . "' and password = '" . $password . "'";
         $result = pg_query($con, $query);
         $checkLogin = pg_num_rows($result);
         if ($checkLogin > 0) {
@@ -37,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username;
+            $_SESSION['fullname'];
 
             header('location: welcome.php');
         } else {
@@ -112,50 +112,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         crossorigin="anonymous"></script>
 </body>
 </html>
-
-<?php
-//$dbconn = pg_connect('host=ec2-18-214-238-28.compute-1.amazonaws.com dbname=d9dhsg5pgvf1n2 user=fksksdukfwopjs password=4b18a5d24d326aebed06fd62df035a9541852c62f7045283483f8f21685718ef');
-//if (isset($_POST['submit']) && !empty($_POST['submit'])) {
-//
-//    $hashpassword = md5($_POST['pwd']);
-//    $sql = "select * from public.user where email = '" . pg_escape_string($_POST['email']) . "' and password ='" . $hashpassword . "'";
-//    $data = pg_query($dbconn, $sql);
-//    $login_check = pg_num_rows($data);
-//    if ($login_check > 0) {
-//        echo "Login Successfully";
-//    } else {
-//        echo "Invalid Details";
-//    }
-//}
-//?>
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <title>PHP PostgreSQL Registration & Login Example </title>-->
-<!--    <meta name="keywords" content="PHP,PostgreSQL,Insert,Login">-->
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
-<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="container">-->
-<!--    <h2>Login Here </h2>-->
-<!--    <form method="post">-->
-<!---->
-<!---->
-<!--        <div class="form-group">-->
-<!--            <label for="email">Email:</label>-->
-<!--            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">-->
-<!--        </div>-->
-<!---->
-<!---->
-<!--        <div class="form-group">-->
-<!--            <label for="pwd">Password:</label>-->
-<!--            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">-->
-<!--        </div>-->
-<!---->
-<!--        <input type="submit" name="submit" class="btn btn-primary" value="Submit">-->
-<!--    </form>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->
