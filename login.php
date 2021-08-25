@@ -7,7 +7,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     exit;
 }
 
-require_once 'connection.php';
+require 'connection.php';
 
 $username = $password = null;
 $username_error = $password_error = null;
@@ -27,11 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($username_error) && empty($password_error)) {
         $hashed_password = md5($password);
-        $query = "select * from users where username = '" . pg_escape_string($username) . "' and password = '" . $hashed_password . "'";
+        $query = "select * from users where username = '" . $username . "' and password = '" . $hashed_password . "'";
         $result = pg_query($con, $query);
         $checkLogin = pg_num_rows($result);
         if ($checkLogin > 0) {
-            echo '<div class="alert alert-danger" role="alert">Đăng nhập thành công</div>';
+            echo '<div class="alert alert-success" role="alert">Đăng nhập thành công</div>';
             header('location: welcome.php');
             exit();
         } else {
