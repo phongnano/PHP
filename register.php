@@ -77,7 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = pg_query($con, $query);
         if ($result) {
             header('location: login.php');
-            exit();
         } else {
             echo '<div class="alert alert-danger" role="alert">Đăng ký thất bại</div>';
         }

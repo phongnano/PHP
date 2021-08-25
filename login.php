@@ -32,8 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $checkLogin = pg_num_rows($result);
         if ($checkLogin > 0) {
             echo '<div class="alert alert-success" role="alert">Đăng nhập thành công</div>';
+
+            session_start();
+
+            $_SESSION['loggedin'] = true;
+            $_SESSION['username'] = $username;
+
             header('location: welcome.php');
-            exit();
         } else {
             echo '<div class="alert alert-danger" role="alert">Tài khoản hoặc mật khẩu không đúng</div>';
         }
