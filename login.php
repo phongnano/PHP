@@ -11,7 +11,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 require_once 'connection.php';
 
 $username = $password = null;
-$username_error = $password_error = $login_error = null;
+$username_error = $password_error = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty(trim($_POST['username']))) {
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
     }
-    pg_errormessage();
+    echo pg_last_error($con);
 }
 ?>
 
