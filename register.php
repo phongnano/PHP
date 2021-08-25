@@ -73,13 +73,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        $query = "insert into users (username, fullname, gender, password, role) values ('" . $username . "','" . $fullname . "','" . $gender . "','" . $password . "','" . $role . "')";
+        $query = "insert into users (username, fullname, gender, password, role) values ('$username', '$fullname', '$gender', '$password', '$role')";
         $result = pg_query($con, $query);
         if ($result) {
             header('location: login.php');
             exit();
         } else {
-            echo '<div class="alert alert-danger" role="alert">Đăng ký thất bại></div>';
+            echo '<div class="alert alert-danger" role="alert">Đăng ký thất bại</div>';
         }
         pg_close($con);
     }
