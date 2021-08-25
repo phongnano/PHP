@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        $query = "insert into users (username, fullname, gender, password, role) values ('" . $username . "', '" . $fullname . "', '" . $gender . "', '" . password_hash($password, PASSWORD_DEFAULT) . "', '" . $role . "')";
+        $query = "insert into users (username, fullname, gender, password, role) values ('" . $username . "', '" . $fullname . "', '" . $gender . "', '" . md5($password) . "', '" . $role . "')";
         $result = pg_query($con, $query);
         if ($result) {
             header('location: login.php');

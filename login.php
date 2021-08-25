@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty(trim($_POST['password']))) {
         $password_error = 'Vui lòng nhập mật khẩu';
     } else {
-        $password = password_hash(trim($_POST['password'], PASSWORD_DEFAULT));
+        $password = md5(trim($_POST['password']));
     }
 
     if (empty($username_error) && empty($password_error)) {
