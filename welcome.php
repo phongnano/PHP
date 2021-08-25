@@ -27,7 +27,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </style>
 </head>
 <body>
-<h1 class="my-5">Xin chào <b><?php echo htmlspecialchars($_SESSION["fullname"]); ?></b> đến với website của chúng tôi
+<h1 class="my-5">Xin chào <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b> đến với website của chúng tôi
 </h1>
 <p>
     <a href="list-user.php" class="btn btn-success ml-3">Xem danh sách người dùng</a>

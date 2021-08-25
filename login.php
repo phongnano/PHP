@@ -36,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username;
-            $_SESSION['fullname'];
 
             header('location: welcome.php');
         } else {
