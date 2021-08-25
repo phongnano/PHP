@@ -13,31 +13,44 @@ require_once 'connection.php';
 $username = $password = null;
 $username_error = $password_error = null;
 
+//if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//    if (empty(trim($_POST['username']))) {
+//        $username_error = 'Vui lòng nhập tài khoản';
+//    } else {
+//        $username = trim($_POST['username']);
+//    }
+//
+//    if (empty(trim($_POST['password']))) {
+//        $password_error = 'Vui lòng nhập mật khẩu';
+//    } else {
+//        $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+//    }
+//
+//    if (empty($username_error) && empty($password_error)) {
+//        $query = "select * from users where username = '" . $username . "' and password = '" . $password . "'";
+//        $result = pg_query($con, $query);
+//        $checkLogin = pg_num_rows($result);
+//        if ($checkLogin != 1) {
+//            echo '<div class="alert alert-danger" role="alert">Đăng nhập thành công</div>';
+//            header('location: welcome.php');
+//            exit();
+//        } else {
+//            echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
+//            echo pg_numrows($result);
+//        }
+//    }
+//}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (empty(trim($_POST['username']))) {
-        $username_error = 'Vui lòng nhập tài khoản';
+    $hashpassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $sql = "select * from users where username = '" . $_POST['username'] . "' and password ='" . $hashpassword . "'";
+    $data = pg_query($con, $sql);
+    $login_check = pg_num_rows($data);
+    if ($login_check > 0) {
+        echo '<div class="alert alert-success" role="alert">OK</div>';
     } else {
-        $username = trim($_POST['username']);
-    }
 
-    if (empty(trim($_POST['password']))) {
-        $password_error = 'Vui lòng nhập mật khẩu';
-    } else {
-        $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
-    }
-
-    if (empty($username_error) && empty($password_error)) {
-        $query = "select * from users where username = '" . $username . "' and password = '" . $password . "'";
-        $result = pg_query($con, $query);
-        $checkLogin = pg_num_rows($result);
-        if ($checkLogin != 1) {
-            echo '<div class="alert alert-danger" role="alert">Đăng nhập thành công</div>';
-            header('location: welcome.php');
-            exit();
-        } else {
-            echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
-            echo pg_numrows($result);
-        }
+        echo '<div class="alert alert-danger" role="alert">NOT OK</div>';
     }
 }
 ?>
