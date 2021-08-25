@@ -117,7 +117,7 @@
 $dbconn = pg_connect('host=ec2-18-214-238-28.compute-1.amazonaws.com dbname=d9dhsg5pgvf1n2 user=fksksdukfwopjs password=4b18a5d24d326aebed06fd62df035a9541852c62f7045283483f8f21685718ef');
 if (isset($_POST['submit']) && !empty($_POST['submit'])) {
 
-    $hashpassword = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
+    $hashpassword = password_hash($_POST['pwd']);
     $sql = "select * from public.user where email = '" . pg_escape_string($_POST['email']) . "' and password ='" . $hashpassword . "'";
     $data = pg_query($dbconn, $sql);
     $login_check = pg_num_rows($data);
