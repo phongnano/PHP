@@ -87,16 +87,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="form-group">
             <label>Tài khoản</label>
             <input type="text" name="username" placeholder="Nhập tài khoản"
-                   class="form-control <?php echo (!empty($username_error)) ? 'is-invalid' : ''; ?>"
-                   value="<?php echo $username; ?>">
-            <span class="invalid-feedback"><?php echo $username_error; ?></span>
+                   class="form-control">
+<!--            <span class="invalid-feedback">--><?php //echo $username_error; ?><!--</span>-->
         </div>
 
         <div class="form-group">
             <label>Mật khẩu</label>
             <input type="password" name="password" placeholder="Nhập mật khẩu"
-                   class="form-control <?php echo (!empty($password_error)) ? 'is-invalid' : ''; ?>">
-            <span class="invalid-feedback"><?php echo $password_error; ?></span>
+                   class="form-control">
+<!--            <span class="invalid-feedback">--><?php //echo $password_error; ?><!--</span>-->
         </div>
 
         <div class="form-group">
