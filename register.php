@@ -205,6 +205,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     if ($ret) {
         echo "Data saved Successfully";
         header('location: login.php');
+        exit();
     } else {
         echo "Soething Went Wrong";
     }
