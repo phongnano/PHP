@@ -43,14 +43,13 @@ $username_error = $password_error = null;
 
 if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $hashpassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $sql = "select username, password from users where username = '.$username.' and password = '.$hashpassword.'";
+    $sql = "select username, password from users where username = '{$username}' and password = '{$hashpassword}'";
     $data = pg_query($con, $sql);
     $login_check = pg_num_rows($data);
     if ($login_check > 0) {
         echo '<div class="alert alert-success" role="alert">OK</div>';
         header('location: welcome.php');
     } else {
-
         echo '<div class="alert alert-danger" role="alert">NOT OK</div>';
         header('location: index.php');
     }
