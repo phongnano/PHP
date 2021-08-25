@@ -31,12 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = pg_query($con, $query);
         $checkLogin = pg_num_rows($result);
         if ($checkLogin > 0) {
-            $hashed_password=password_hash($password,PASSWORD_DEFAULT);
-            if(password_verify($password,$hashed_password)){
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            if (password_verify($password, $hashed_password)) {
                 header('location: welcome.php');
                 exit();
-            }
-            else{
+            } else {
                 echo '<div class="alert alert-danger" role="alert">Mật khẩu không đúng</div>';
             }
         } else {
@@ -87,8 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="form-group">
             <label>Mật khẩu</label>
             <input type="password" name="password" placeholder="Nhập mật khẩu"
-                   class="form-control <?php echo (!empty($password_error)) ? 'is-invalid' : ''; ?>"
-                   value="<?php echo $password; ?>">
+                   class="form-control <?php echo (!empty($password_error)) ? 'is-invalid' : ''; ?>">
             <span class="invalid-feedback"><?php echo $password_error; ?></span>
         </div>
 

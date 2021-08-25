@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="submit" class="btn btn-primary" value="Đăng ký">
             <input type="reset" class="btn btn-secondary ml-2" value="Nhập lại">
         </div>
-        <p>Bạn đã có tài khoản? <a href="#">Đăng nhập ngay</a></p>
+        <p>Bạn đã có tài khoản? <a href="login.php">Đăng nhập ngay</a></p>
     </form>
 </div>
 <!-- Optional JavaScript -->
