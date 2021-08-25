@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($username_error) && empty($password_error)) {
-        $query = "select username, password from users where username = '$username' and password = '$password'";
+        $query = "select username from users where username = '$username'";
         $result = pg_query($con, $query);
         $checkLogin = pg_num_rows($result);
         if ($checkLogin > 0) {
@@ -36,8 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         } else {
             echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
-            echo $username;
-            echo $password;
         }
     }
 }
