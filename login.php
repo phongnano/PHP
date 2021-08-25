@@ -39,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo '<div class="alert alert-danger" role="alert">Đăng nhập thất bại</div>';
     }
-    pg_close($con);
 }
 ?>
 
@@ -88,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Đăng ký">
+            <input type="submit" class="btn btn-primary" value="Đăng nhập">
             <input type="reset" class="btn btn-secondary ml-2" value="Nhập lại">
         </div>
         <p>Bạn đã chưa có tài khoản? <a href="register.php">Đăng ký ngay</a></p>
