@@ -27,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($username_error) && empty($password_error)) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $query = "select username, password from users where username = '" . $username . "' and password = '" . $hashed_password . "'";
+        $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $query = "select * from users where username = '" . $username . "' and password = '" . $hashed_password . "'";
         $result = pg_query($con, $query);
         $checkLogin = pg_num_rows($result);
         if ($checkLogin > 0) {
