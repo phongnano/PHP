@@ -43,7 +43,7 @@ $username_error = $password_error = null;
 
 if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $hashpassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $sql = "select * from users where username = '" . $_POST['username'] . "' and password ='" . $hashpassword . "'";
+    $sql = "select * from users where username = '" . $_POST['username'] . "', password ='" . $hashpassword . "'";
     $data = pg_query($con, $sql);
     $login_check = pg_num_rows($data);
     if ($login_check > 0) {
