@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($username_error) && empty($password_error)) {
-        $query = "select * from users where username = '$username and password = '$password'";
+        $query = "select * from users where username = '" . $username . "' and password = '" . $password . "'";
         $result = pg_query($con, $query);
         $checkLogin = pg_num_rows($result);
         if ($checkLogin != 1) {
