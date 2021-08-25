@@ -204,6 +204,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $ret = pg_query($dbconn, $sql);
     if ($ret) {
         echo "Data saved Successfully";
+        header('location: login.php');
     } else {
         echo "Soething Went Wrong";
     }
