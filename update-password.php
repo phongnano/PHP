@@ -21,11 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $checkExistPassword = "select password from users where username = '" . $_SESSION['username'] . "'";
         $result = pg_query($con, $checkExistPassword);
         if (pg_num_rows($result)) {
-//            $old_password = trim($_POST['old_password']);
-            $oldpassword_error = 'Mật không không tồn tại';
+            $old_password = md5(trim($_POST['old_password']));
+            $oldpassword_error = 'Mật không tồn tại';
         } else {
-//            $oldpassword_error = 'Mật không không tồn tại';
-            $old_password = trim($_POST['old_password']);
+            $oldpassword_error = 'Mật không không tồn tại';
         }
 
 
