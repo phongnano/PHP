@@ -18,12 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (strlen(trim($_POST['old_password'])) < 6) {
         $oldpassword_error = 'Mật khẩu phải ít nhất 6 ký tự';
     } else {
-        $checkPassword = "select password from users where username = '" . $_SESSION['username'] . "'";
-        $result = pg_query($con, $checkPassword);
+        $checkExistPassword = "select password from users where username = '" . $_SESSION['username'] . "'";
+        $result = pg_query($con, $checkExistPassword);
         if (pg_num_rows($result)) {
-            $old_password = trim($_POST['old_password']);
-        } else {
+//            $old_password = trim($_POST['old_password']);
             $oldpassword_error = 'Mật không không tồn tại';
+        } else {
+//            $oldpassword_error = 'Mật không không tồn tại';
+            $old_password = trim($_POST['old_password']);
         }
 
 
