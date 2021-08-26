@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($oldpassword_error) && empty($newpassword_error) && empty($confirmpassword_error)) {
-        $query = "update users set password = '" . $new_password . "' where username = '" . $_SESSION['username'] . "'";
+        $query = "update users set password = '" . md5($new_password) . "' where username = '" . $_SESSION['username'] . "'";
         $result = pg_query($con, $query);
 
         if ($result) {
