@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = pg_query($con, $checkExistPassword);
         if (pg_num_rows($result)) {
             $old_password = md5(trim($_POST['old_password']));
-            $oldpassword_error = 'Mật không tồn tại';
+            $oldpassword_error = 'Mật khẩu tồn tại';
         } else {
-            $oldpassword_error = 'Mật không không tồn tại';
+            $oldpassword_error = 'Mật khẩu không tồn tại';
         }
 
 
