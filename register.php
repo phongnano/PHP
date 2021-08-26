@@ -8,9 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty(trim($_POST['username']))) {
         $username_error = 'Vui lòng nhập tài khoản';
     } else {
-        $checkExistUsername = "select username from users where username = '" . $username . "'";
+        $checkExistUsername = "select username from users where username = '" . trim($_POST['username']) . "'";
         $result = pg_query($con, $checkExistUsername);
-        if (pg_num_rows($result) == 1) {
+        if (pg_num_rows($result)) {
             $username_error = 'Tài khoản đã tồn tại';
         } else {
             $username = trim($_POST['username']);
