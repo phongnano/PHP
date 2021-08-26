@@ -19,44 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $oldpassword_error = 'Mật khẩu phải ít nhất 6 ký tự';
     } else {
         $old_password = trim($_POST['old_password']);
-//        $checkExistPassword = "select password from users where username = '" . $_SESSION['username'] . "'";
-//        $result = pg_query($con, $checkExistPassword);
-//        if (pg_num_rows($result)) {
-//            $hashed_password = md5(trim($_POST['old_password']));
-//            if (pg_fetch_result($result)) {
-//                $old_password = trim($_POST['old_password']);
-//                if (password_verify($old_password, $hashed_password)) {
-//                    $oldpassword_error = 'Mật khẩu tồn tại';
-//                } else {
-//                    $oldpassword_error = 'Mật khẩu không tồn tại';
-//                }
-//            }
-//        }
-
-//        if ($stmt = mysqli_prepare($link, $checkPassword)) {
-//            mysqli_stmt_bind_param($stmt, 's', $param_username);
-//
-//            $param_username = $_SESSION['username'];
-//
-//            if (mysqli_stmt_execute($stmt)) {
-//                mysqli_stmt_store_result($stmt);
-//
-//                if (mysqli_stmt_num_rows($stmt) == 1) {
-//                    mysqli_stmt_bind_result($stmt, $hashed_password);
-//                    if (mysqli_stmt_fetch($stmt)) {
-//                        $old_password = trim($_POST['old_password']);
-//                        if (password_verify($old_password, $hashed_password)) {
-//                            $old_password = trim($_POST['old_password']);
-//                        } else {
-//                            $oldpassword_err = 'Mật không không tồn tại';
-//                        }
-//                    } else {
-//                        echo "Đã xảy ra lỗi. Vui lòng thử lại sau";
-//                    }
-//                    mysqli_stmt_close($stmt);
-//                }
-//            }
-//        }
+        $checkExistPassword = "select password from users where username = '" . $_SESSION['username'] . "'";
+        $result = pg_query($con, $checkExistPassword);
+        if (pg_num_rows($result)) {
+            $oldpassword_error = 'Mật khẩu đã tồn tại';
+        } else {
+            $oldpassword_error = 'Mật khẩu không tồn tại';
+        }
     }
 
     if (empty(trim($_POST['new_password']))) {
