@@ -18,19 +18,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (strlen(trim($_POST['old_password'])) < 6) {
         $oldpassword_error = 'Mật khẩu phải ít nhất 6 ký tự';
     } else {
-        $checkExistPassword = "select password from users where username = '" . $_SESSION['username'] . "'";
-        $result = pg_query($con, $checkExistPassword);
-        if (pg_num_rows($result)) {
-            $hashed_password = md5(trim($_POST['old_password']));
-            if (pg_fetch_result($result)) {
-                $old_password = trim($_POST['old_password']);
-                if (password_verify($old_password, $hashed_password)) {
-                    $oldpassword_error = 'Mật khẩu tồn tại';
-                } else {
-                    $oldpassword_error = 'Mật khẩu không tồn tại';
-                }
-            }
-        }
+        $old_password = trim($_POST['old_password']);
+//        $checkExistPassword = "select password from users where username = '" . $_SESSION['username'] . "'";
+//        $result = pg_query($con, $checkExistPassword);
+//        if (pg_num_rows($result)) {
+//            $hashed_password = md5(trim($_POST['old_password']));
+//            if (pg_fetch_result($result)) {
+//                $old_password = trim($_POST['old_password']);
+//                if (password_verify($old_password, $hashed_password)) {
+//                    $oldpassword_error = 'Mật khẩu tồn tại';
+//                } else {
+//                    $oldpassword_error = 'Mật khẩu không tồn tại';
+//                }
+//            }
+//        }
 
 //        if ($stmt = mysqli_prepare($link, $checkPassword)) {
 //            mysqli_stmt_bind_param($stmt, 's', $param_username);
@@ -63,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (strlen(trim($_POST['new_password'])) < 6) {
         $newpassword_error = 'Mật khẩu phải ít nhất 6 ký tự';
     } else {
-        $new_password = trim($_POST['new_password']);
+        $new_password = md5(trim($_POST['new_password']));
         if (empty($oldpassword_error) && ($old_password == $new_password)) {
             $newpassword_error = 'Mật khẩu mới không được trùng mật khẩu hiện tại';
         }
@@ -79,6 +80,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($oldpassword_error) && empty($newpassword_error) && empty($confirmpassword_error)) {
+        $query = "update users set password '" . $new_password . "' where username = '" . $_SESSION['username'] . "'";
+        $result = pg_query($con, $query);
+
+        if ($result) {
+            session_destroy();
+            header('location: index.php');
+            exit();
+        } else {
+            echo pg_last_error($con);
+        }
+
 //        $query = "update users set password = ? where username = '" . $_SESSION['username'] . "'";
 //        $result = pg_query($con, $query);
 //        if ($result) {

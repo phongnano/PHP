@@ -1,24 +1,19 @@
 <?php
-// Initialize the session
+
 session_start();
 
-// Check if the user is logged in, otherwise redirect to login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
     exit;
 }
 
-// Include config file
 require_once "connection.php";
 
-// Define variables and initialize with empty values
-$new_password = $confirm_password = "";
-$new_password_err = $confirm_password_err = "";
+$new_password = $confirm_password = null;
+$newpassword_error = $confirmpassword_error = null;
 
-// Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Validate new password
     if (empty(trim($_POST["new_password"]))) {
         $new_password_err = "Vui lòng nhập mật khẩu mới";
     } elseif (strlen(trim($_POST["new_password"])) < 6) {
@@ -54,46 +49,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $new_password = trim($_POST['new_password']);
     }
 
-// Validate confirm password
     if (empty(trim($_POST["confirm_password"]))) {
         $confirm_password_err = "Vui lòng xác nhận mật khẩu";
     } else {
         $confirm_password = trim($_POST["confirm_password"]);
-        if (empty($new_password_err) && ($new_password != $confirm_password)) {
-            $confirm_password_err = "Mật khẩu không khớp";
+        if (empty($newpassword_error) && ($new_password != $confirm_password)) {
+            $confirmpassword_error = "Mật khẩu không khớp";
         }
     }
 
-// Check input errors before updating the database
-    if (empty($new_password_err) && empty($confirm_password_err)) {
-        // Prepare an update statement
-        $sql = "update users set password = ? where username = ?";
-
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_password, $param_username);
-
-            // Set parameters
-            $param_password = password_hash($new_password, PASSWORD_DEFAULT);
-            $param_username = $_SESSION["username"];
-
-            // Attempt to execute the prepared statement
-            if (mysqli_stmt_execute($stmt)) {
-                // Password updated successfully. Destroy the session, and redirect to login page
-                session_destroy();
-                header("location: login.php");
-                exit();
-            } else {
-                echo "Đã xảy ra lỗi. Vui lòng thử lại sau";
-            }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }
+    if (empty($newpassword_error) && empty($confirmpassword_error)) {
+//        // Prepare an update statement
+//        $sql = "update users set password = ? where username = ?";
+//
+//        if ($stmt = mysqli_prepare($link, $sql)) {
+//            // Bind variables to the prepared statement as parameters
+//            mysqli_stmt_bind_param($stmt, "ss", $param_password, $param_username);
+//
+//            // Set parameters
+//            $param_password = password_hash($new_password, PASSWORD_DEFAULT);
+//            $param_username = $_SESSION["username"];
+//
+//            // Attempt to execute the prepared statement
+//            if (mysqli_stmt_execute($stmt)) {
+//                // Password updated successfully. Destroy the session, and redirect to login page
+//                session_destroy();
+//                header("location: login.php");
+//                exit();
+//            } else {
+//                echo "Đã xảy ra lỗi. Vui lòng thử lại sau";
+//            }
+//
+//            // Close statement
+//            mysqli_stmt_close($stmt);
+//        }
     }
 
 // Close connection
-    mysqli_close($link);
+//    mysqli_close($link);
 }
 ?>
 
