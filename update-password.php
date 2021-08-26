@@ -21,13 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $checkExistPassword = "select password from users where username = '" . $_SESSION['username'] . "'";
         $result = pg_query($con, $checkExistPassword);
         if (pg_num_rows($result)) {
-            $old_password = md5(trim($_POST['old_password']));
-            $oldpassword_error = 'Mật khẩu tồn tại';
-            echo $result;
-        } else {
-            $oldpassword_error = 'Mật khẩu không tồn tại';
+            $hashed_password = md5(trim($_POST['old_password']));
+            if (pg_fetch_result($result)) {
+                $old_password = trim($_POST['old_password']);
+                if (password_verify($old_password, $hashed_password)) {
+                    $oldpassword_error = 'Mật khẩu tồn tại';
+                } else {
+                    $oldpassword_error = 'Mật khẩu không tồn tại';
+                }
+            }
         }
-
 
 //        if ($stmt = mysqli_prepare($link, $checkPassword)) {
 //            mysqli_stmt_bind_param($stmt, 's', $param_username);
