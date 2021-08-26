@@ -44,7 +44,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </script>
 </head>
 <body>
-<h1 class="my-5">Xin chào <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b> đến với website của chúng tôi
+<h1 class="my-5">Xin chào <b><?php echo htmlspecialchars($_SESSION["fullname"]); ?></b> đến với website của chúng tôi
 </h1>
 <a href="welcome.php" class="btn btn-danger ml-3">Thoát</a>
 <div class="wrapper">
@@ -113,8 +113,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         echo '<td>' . $role . '</td>';
                         echo '<td>';
                         echo '<a href="select-user.php?username=' . $row['username'] . '" class="mr-3" title="Xem" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
-//                        echo '<a href="update-password.php?username=' . $row['username'] . '" class="mr-3" title="Cập nhật" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                        echo '<a href="#" class="mr-3" title="Cập nhật" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                        echo '<a href="update-password.php?username=' . $row['username'] . '" class="mr-3" title="Cập nhật" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+//                        echo '<a href="#" class="mr-3" title="Cập nhật" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
                         echo '<a href="delete-user.php?username=' . $row['username'] . '" class="mr-3" title="Xoá" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                         echo '</td>';
                         echo '</tr>';

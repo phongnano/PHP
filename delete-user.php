@@ -18,28 +18,6 @@ if (isset($_POST['username']) && !empty($_POST['username'])) {
         $error = pg_last_error();
         echo 'Lỗi ' . $error;
     }
-
-//    if ($stmt = mysqli_prepare($link, $sql)) {
-//        mysqli_stmt_bind_param($stmt, 's', $param_username);
-//
-//        $param_username = trim($_POST['username']);
-//
-//        if (mysqli_stmt_execute($stmt)) {
-//            session_destroy();
-//            header('location: index.php');
-//            exit();
-//        } else {
-//            echo 'Đã xảy ra lỗi. Vui lòng thử lại sau';
-//        }
-//    }
-//    mysqli_stmt_close($stmt);
-//
-//    mysqli_close($link);
-//} else {
-//    if (empty(trim($_GET['username']))) {
-//        header('location: error.php');
-//        exit();
-//    }
 }
 ?>
 
