@@ -21,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $checkPassword = "select password from users where username = '" . $_SESSION['username'] . "'";
         $result = pg_query($con, $checkPassword);
         if (pg_num_rows($result)) {
-            $oldpassword_error = 'Mật không không tồn tại';
-        } else {
             $old_password = trim($_POST['old_password']);
+        } else {
+            $oldpassword_error = 'Mật không không tồn tại';
         }
 
 
