@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (strlen(trim($_POST['new_password'])) < 6) {
         $newpassword_error = 'Mật khẩu phải ít nhất 6 ký tự';
     } else {
-        $new_password = md5(trim($_POST['new_password']));
+        $new_password = trim($_POST['new_password']);
         if (empty($oldpassword_error) && ($old_password == $new_password)) {
             $newpassword_error = 'Mật khẩu mới không được trùng mật khẩu hiện tại';
         }
