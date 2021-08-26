@@ -14,7 +14,7 @@ $username_error = $oldpassword_error = $newpassword_error = $confirmpassword_err
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty(trim($_POST['old_password']))) {
-        $oldpassword_error = 'Xin vui lòng nhập mật khẩu hiện tại';
+        $oldpassword_error = 'Vui lòng nhập mật khẩu hiện tại';
     } elseif (strlen(trim($_POST['old_password'])) < 6) {
         $oldpassword_error = 'Mật khẩu phải ít nhất 6 ký tự';
     } else {
@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (pg_num_rows($result)) {
             $old_password = md5(trim($_POST['old_password']));
             $oldpassword_error = 'Mật khẩu tồn tại';
+            echo $result;
         } else {
             $oldpassword_error = 'Mật khẩu không tồn tại';
         }
