@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo $result;
         } else {
             $oldpassword_error = 'Mật khẩu không tồn tại';
+            echo $result;
         }
     }
 
@@ -60,32 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             echo pg_last_error($con);
         }
-
-//        $query = "update users set password = ? where username = '" . $_SESSION['username'] . "'";
-//        $result = pg_query($con, $query);
-//        if ($result) {
-//            session_destroy();
-//            header('location: index.php');
-//            exit();
-//        } else {
-//            echo pg_last_error($con);
-//        }
-
-//        if ($stmt = mysqli_prepare($link, $sql)) {
-//            mysqli_stmt_bind_param($stmt, 'ss', $param_password, $param_username);
-//
-//            $param_password = password_hash($new_password, PASSWORD_DEFAULT);
-//            $param_username = $_SESSION['username'];
-//
-//            if (mysqli_stmt_execute($stmt)) {
-//                session_destroy();
-//                header('location: index.php');
-//                exit();
-//            } else {
-//                echo "Đã xảy ra lỗi. Vui lòng thử lại sau";
-//            }
-//        }
-//        mysqli_stmt_close($stmt);
     }
 }
 ?>

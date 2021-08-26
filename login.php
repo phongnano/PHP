@@ -22,11 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty(trim($_POST['password']))) {
         $password_error = 'Vui lòng nhập mật khẩu';
     } else {
-        $password = md5(trim($_POST['password']));
+        $password = trim($_POST['password']);
     }
 
     if (empty($username_error) && empty($password_error)) {
-        $query = "select * from users where username = '" . $username . "' and password = '" . $password . "'";
+        $query = "select * from users where username = '" . $username . "' and password = '" . md5($password) . "'";
         $result = pg_query($con, $query);
         $row = pg_fetch_assoc($result);
         if (pg_num_rows($result) == 1) {
