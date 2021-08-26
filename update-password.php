@@ -74,15 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($oldpassword_error) && empty($newpassword_error) && empty($confirmpassword_error)) {
-        $query = "update users set password = ? where username = '" . $_SESSION['username'] . "'";
-        $result = pg_query($con, $query);
-        if ($result) {
-            session_destroy();
-            header('location: index.php');
-            exit();
-        } else {
-            echo pg_last_error($con);
-        }
+//        $query = "update users set password = ? where username = '" . $_SESSION['username'] . "'";
+//        $result = pg_query($con, $query);
+//        if ($result) {
+//            session_destroy();
+//            header('location: index.php');
+//            exit();
+//        } else {
+//            echo pg_last_error($con);
+//        }
 
 //        if ($stmt = mysqli_prepare($link, $sql)) {
 //            mysqli_stmt_bind_param($stmt, 'ss', $param_password, $param_username);
