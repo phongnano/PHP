@@ -28,14 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($username_error) && empty($password_error)) {
         $query = "select * from users where username = '" . $username . "' and password = '" . $password . "'";
         $result = pg_query($con, $query);
-        $checkLogin = pg_num_rows($result);
-        if ($checkLogin > 0) {
-            echo '<div class="alert alert-success" role="alert">Đăng nhập thành công</div>';
-
+        $row = pg_fetch_assoc($result);
+        if (pg_num_rows($result) == 1) {
             session_start();
 
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username;
+            $_SESSION['fullname'] = $row['fullname'];
 
             header('location: welcome.php');
         } else {
@@ -93,7 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div class="form-group">
             <input type="submit" name="submit" class="btn btn-primary" value="Đăng nhập">
-            <input type="reset" class="btn btn-secondary ml-2" value="Nhập lại">
+            <!--            <input type="reset" class="btn btn-secondary ml-2" value="Nhập lại">-->
+            <a href="register.php">Quên mật khẩu?</a>
         </div>
         <p>Bạn đã chưa có tài khoản? <a href="register.php">Đăng ký ngay</a></p>
     </form>

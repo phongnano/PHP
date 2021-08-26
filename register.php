@@ -8,7 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty(trim($_POST['username']))) {
         $username_error = 'Vui lòng nhập tài khoản';
     } else {
-        $username = trim($_POST['username']);
+        $checkExistUsername = "select username from users where username = '" . $username . "'";
+        $result = pg_query($con, $checkExistUsername);
+        if (pg_num_rows($result) == 1) {
+            $username_error = 'Tài khoản đã tồn tại';
+        } else {
+            $username = trim($_POST['username']);
+        }
     }
 
     if (empty(trim($_POST['fullname']))) {
@@ -33,6 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $confirmpassword_error = 'Vui lòng xác nhận mật khẩu';
     } else {
         $confirm_password = trim($_POST['confirm_password']);
+        if (empty($password_error) && ($password != $confirm_password)) {
+            $confirmpassword_error = 'Mật khẩu không khớp';
+        }
     }
 
     if (empty(trim($_POST['role']))) {
