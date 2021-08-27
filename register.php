@@ -88,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('location: login.php');
         } else {
             echo '<div class="alert alert-danger" role="alert">Đăng ký thất bại</div>';
+            echo pg_last_error();
         }
         pg_close($con);
     }
