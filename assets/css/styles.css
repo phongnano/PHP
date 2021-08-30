@@ -1,0 +1,76 @@
+body {
+    min-height: 100%;
+}
+
+.border-md {
+    border-width: 2px;
+    border-radius: 10px;
+}
+
+.form-control:not(select) {
+    padding: 1.5rem 0.5rem;
+}
+
+select.form-control {
+    height: 52px;
+    padding-left: 0.5rem;
+}
+
+.form-control::placeholder {
+    color: #ccc;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.btn-outline-success {
+    border-width: 2px;
+    border-radius: 10px;
+}
+
+/*Imamge*/
+#avatar {
+    opacity: 0;
+}
+
+#upload-image {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+}
+
+.image-area {
+    border: 2px dashed rgba(255, 255, 255, 0.7);
+    padding: 1rem;
+    position: relative;
+}
+
+.image-area::before {
+    font-weight: bold;
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    z-index: 1;
+}
+
+.image-area img {
+    z-index: 2;
+    position: relative;
+}
+
+#imageResult {
+    border-radius: 10px;
+}
+
+#gender {
+    color: #ccc;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
