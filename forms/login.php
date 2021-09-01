@@ -33,11 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit();
             }
             if ($role == 1) {
-                header('location:../index.php');
+                header('location:../employee/employee-dashboard.php');
                 exit();
             }
             if ($role == 2) {
-                header('location:../welcome.php');
+                header('location:../customer/list-user.php');
                 exit();
             }
         } else {

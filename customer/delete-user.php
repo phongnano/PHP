@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_POST['username']) && !empty($_POST['username'])) {
-    require_once 'backend/connection.php';
+    require_once '../backend/connection.php';
 
     $username = trim($_POST['username']);
 

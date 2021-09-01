@@ -53,7 +53,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <div class="col-md-12">
                 <div class="mt-5 mb-3 clearfix">
                     <h2 class="pull-left">Danh sách người dùng</h2>
-                    <a href="register.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tạo người dùng
+                    <a href="../forms/register.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tạo người dùng
                         mới</a>
                 </div>
 
@@ -72,7 +72,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                     <tbody>
                     <?php
-                    require 'backend/connection.php';
+                    require '../backend/connection.php';
 
                     $query = "select * from users where username = '" . $_SESSION["username"] . "' ";
                     $result = pg_query($con, $query);
