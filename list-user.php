@@ -57,37 +57,26 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         mới</a>
                 </div>
 
-                <?php
-                require_once 'connection.php';
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Tài khoản</th>
+                        <th>Họ và tên</th>
+                        <th>Giới tính</th>
+                        <th>Ngày sinh</th>
+                        <th>Ảnh đại diện</th>
+                        <th>Chức vụ</th>
+                        <th>Hành động</th>
+                    </tr>
+                    </thead>
 
-                $query = "select username, fullname, gender, role from users where username = '" . $_SESSION["username"] . "'";
-                $result = pg_query($con, $query);
-                if ($result) {
-                    echo '<table class="table table-bordered table-striped table-hover">';
-                    echo '<thead>';
-                    echo '<tr>';
-                    echo '<th>Tài khoản</th>';
-                    echo '<th>Họ và tên</th>';
-                    echo '<th>Giới tính</th>';
-                    echo '<th>Chức vụ</th>';
-                    echo '<th>Hành động</th>';
-                    echo '</tr>';
-                    echo '</thead>';
-                    echo '<tbody>';
+                    <tbody>
+                    <?php
+                    require 'backend/connection.php';
+
+                    $query = "select * from users where username = '" . $_SESSION["username"] . "' ";
+                    $result = pg_query($con, $query);
                     while ($row = pg_fetch_array($result)) {
-                        $gender = $row['gender'];
-                        switch ($gender) {
-                            case 0:
-                            {
-                                $gender = 'Nam';
-                                break;
-                            }
-                            case 1:
-                            {
-                                $gender = 'Nữ';
-                                break;
-                            }
-                        }
                         $role = $row['role'];
                         switch ($role) {
                             case 0:
@@ -106,23 +95,30 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 break;
                             }
                         }
-                        echo '<tr>';
-                        echo '<td>' . $row['username'] . '</td>';
-                        echo '<td>' . $row['fullname'] . '</td>';
-                        echo '<td>' . $gender . '</td>';
-                        echo '<td>' . $role . '</td>';
-                        echo '<td>';
-                        echo '<a href="select-user.php?username=' . $row['username'] . '" class="mr-3" title="Xem" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
-                        echo '<a href="update-password.php?username=' . $row['username'] . '" class="mr-3" title="Cập nhật" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-//                        echo '<a href="#" class="mr-3" title="Cập nhật" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                        echo '<a href="delete-user.php?username=' . $row['username'] . '" class="mr-3" title="Xoá" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-                        echo '</td>';
-                        echo '</tr>';
+                        ?>
+                        <tr>
+                            <td><?php echo $row['username']; ?></td>
+                            <td><?php echo $row['fullname']; ?></td>
+                            <td><?php echo $row['gender'] ? 'Nữ' : 'Nam'; ?></td>
+                            <td><?php echo date('d/m/yy', strtotime($row['birthday'])); ?></td>
+                            <td><img src="<?php echo $row['avatar']; ?>" width="100" height="100"></td>
+                            <td><?php echo $role; ?></td>
+                            <td>
+                                <a href="select-user.php?username=<?php echo $row['username']; ?>" class="mr-3"
+                                   title="Xem"
+                                   data-toggle="tooltip"><span class="fa fa-eye"></span></a>
+                                <a href="update-password.php?username=<?php echo $row['username']; ?>" class="mr-3"
+                                   title="Cập nhật" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>
+                                <a href="delete-user.php?username= <?php echo $row['username']; ?>" class="mr-3"
+                                   title="Xoá"
+                                   data-toggle="tooltip"><span class="fa fa-trash"></span></a>
+                            </td>
+                        </tr>
+                        <?php
                     }
-                    echo '</tbody>';
-                    echo '</table>';
-                }
-                ?>
+                    ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

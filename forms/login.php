@@ -26,10 +26,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['fullname'] = $row['fullname'];
-
-            echo '<div class="alert alert-success" role="alert">Đăng nhập thành công</div>';
-            header('location:/admin/admin-dashboard.php');
-            exit();
+            $_SESSION['role'] = $row['role'];
+            $role = $_SESSION['role'];
+            if ($role == 0) {
+                header('location:../admin/admin-dashboard.php');
+                exit();
+            }
+            if ($role == 1) {
+                header('location:../index.php');
+                exit();
+            }
+            if ($role == 2) {
+                header('location:../welcome.php');
+                exit();
+            }
         } else {
             echo '<div class="alert alert-danger" role="alert">Tài khoản hoặc mật khẩu không đúng</div>';
         }
@@ -144,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="form-group col-lg-12 mx-auto">
                             <a href="../index.php" class="btn btn-services btn-block py-2">
                                 <i class="fa fa-arrow-left mr-2"></i>
-                                <span class="font-weight-bold">Quay về</span>
+                                <span class="font-weight-bold">Quay về trang chủ</span>
                             </a>
                         </div>
                     </div>

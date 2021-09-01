@@ -465,7 +465,7 @@
                 <div class="col-lg-6">
                     <div class="map mb-4 mb-lg-0">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.2287119576054!2d106.57509141526516!3d10.793787261823406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752c8199ea9a13%3A0x1ca290d3205eab88!2zQ8ahIFPhu58gVHLhu6luZyBHaWEgQ-G6p20gVGhhbmggTG9hbg!5e0!3m2!1svi!2s!4v1630211327082!5m2!1svi!2s"
-                                width="100%" height="450" style="border: 0;" allowfullscreen="" loading="lazy"></iframe>
+                                width="100%" height="450" style="border: 0;" allowfullscreen=""></iframe>
                     </div>
                 </div>
 

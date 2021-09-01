@@ -2,21 +2,29 @@
 session_start();
 
 if (isset($_POST['username']) && !empty($_POST['username'])) {
-    require_once 'connection.php';
+    require_once 'backend/connection.php';
 
     $username = trim($_POST['username']);
 
-    $query = "delete from users where username = '" . $username . "'";
+    $query_select = "select * from users where username = '" . $username . "'";
+    $result_select = pg_query($con, $query_select);
+    $row = pg_fetch_assoc($result_select);
 
-    $result = pg_query($con, $query);
-    if ($result) {
-        pg_close($con);
-        session_destroy();
-        header('location: index.php');
-        exit();
-    } else {
-        $error = pg_last_error();
-        echo 'Lỗi ' . $error;
+    $avt = $row['avatar'];
+
+    $avatar_dir = $avt;
+
+    if (unlink($avatar_dir)) {
+        $query = "delete from users where username = '" . $username . "'";
+
+        $result = pg_query($con, $query);
+
+        if ($result) {
+            echo '<script>alert("OK");</script>';
+            header('location: ../index.php');
+        } else {
+            echo '<script>alert("NOT OK");</script>';
+        }
     }
 }
 ?>
