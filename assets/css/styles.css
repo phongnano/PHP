@@ -32,45 +32,109 @@ select.form-control {
 }
 
 /*Imamge*/
-#avatar {
-    opacity: 0;
-}
+/*#avatar {*/
+/*    opacity: 0;*/
+/*}*/
 
-#upload-image {
-    position: absolute;
-    top: 50%;
-    left: 1rem;
-    transform: translateY(-50%);
-}
+/*#upload-image {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 1rem;*/
+/*    transform: translateY(-50%);*/
+/*}*/
 
-.image-area {
-    border: 2px dashed rgba(255, 255, 255, 0.7);
-    padding: 1rem;
-    position: relative;
-}
+/*.image-area {*/
+/*    border: 2px dashed rgba(255, 255, 255, 0.7);*/
+/*    padding: 1rem;*/
+/*    position: relative;*/
+/*}*/
 
-.image-area::before {
-    font-weight: bold;
-    text-transform: uppercase;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 0.8rem;
-    z-index: 1;
-}
+/*.image-area::before {*/
+/*    font-weight: bold;*/
+/*    text-transform: uppercase;*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    font-size: 0.8rem;*/
+/*    z-index: 1;*/
+/*}*/
 
-.image-area img {
-    z-index: 2;
-    position: relative;
-}
+/*.image-area img {*/
+/*    z-index: 2;*/
+/*    position: relative;*/
+/*}*/
 
-#imageResult {
-    border-radius: 10px;
-}
+/*#imageResult {*/
+/*    border-radius: 10px;*/
+/*}*/
 
 #gender {
     color: #ccc;
     font-weight: bold;
     font-size: 0.9rem;
 }
+
+.ui-datepicker {
+    background-color: #fff;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold
+}
+
+.ui-datepicker-header {
+    background-color: #fff;
+    border-radius: 10px;
+    border-width: 0;
+}
+
+.ui-datepicker-title {
+    color: white;
+}
+
+.ui-widget-content .ui-state-default {
+    border: 0;
+    text-align: center;
+    background: #fff;
+    font-weight: normal;
+    color: #000;
+}
+
+.ui-widget-content .ui-state-default:hover {
+    border: 0;
+    text-align: center;
+    background: #000;
+    font-weight: normal;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.ui-widget-content .ui-state-active {
+    border: 0;
+    background: mediumpurple;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.ui-datepicker-buttonpane button {
+    border-radius: 10px;
+}
+
+.ui-datepicker-today .ui-state-highlight {
+    background: #E6E6E6 repeat-x scroll 50% 50%;
+    color: #555555;
+    font-weight: bolder;
+    border-radius: 10px;
+}
+
+.ui-datepicker-week-end, .a.ui-datepicker-default {
+    color: indianred;
+}
+
+.ui-state-hover {
+    border-radius: 10px;
+}
+
+/*#phone:active, #phone:focus {*/
+/*    border: 2px solid indianred;*/
+/*}*/

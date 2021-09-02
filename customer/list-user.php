@@ -8,9 +8,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 }
 ?>
 
-</body>
-</html>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,41 +16,29 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    <!--     Bootstrap CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <!--    Font awesome-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--        Font awesome-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
-        .wrapper {
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        table tr td:last-child {
-            width: 120px;
+        .btn-success {
+            border-width: 2px;
+            border-radius: 10px;
         }
     </style>
-
-    <script>
-        $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
 </head>
 <body>
-<h1 class="my-5">Xin chào <b><?php echo htmlspecialchars($_SESSION["fullname"]); ?></b> đến với website của chúng tôi
-</h1>
-<a href="welcome.php" class="btn btn-danger ml-3">Thoát</a>
 <div class="wrapper">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="mt-5 mb-3 clearfix">
                     <h2 class="pull-left">Danh sách người dùng</h2>
-                    <a href="../forms/register.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tạo người dùng
+                    <a href="../forms/register.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tạo
+                        người dùng
                         mới</a>
                 </div>
 
@@ -104,12 +89,15 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             <td><img src="<?php echo $row['avatar']; ?>" width="100" height="100"></td>
                             <td><?php echo $role; ?></td>
                             <td>
-                                <a href="select-user.php?username=<?php echo $row['username']; ?>" class="mr-3"
+                                <a href="select-user.php?username=
+<?php echo $row['username']; ?>" class="mr-3"
                                    title="Xem"
                                    data-toggle="tooltip"><span class="fa fa-eye"></span></a>
-                                <a href="update-password.php?username=<?php echo $row['username']; ?>" class="mr-3"
+                                <a href="update-password.php?username=
+<?php echo $row['username']; ?>" class="mr-3"
                                    title="Cập nhật" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>
-                                <a href="delete-user.php?username= <?php echo $row['username']; ?>" class="mr-3"
+                                <a href="delete-user.php?username=
+<?php echo $row['username']; ?>" class="mr-3"
                                    title="Xoá"
                                    data-toggle="tooltip"><span class="fa fa-trash"></span></a>
                             </td>
@@ -124,6 +112,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </div>
 </div>
 </p>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
