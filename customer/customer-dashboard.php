@@ -11,7 +11,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Title</title>
+    <title>ABC | Khách hàng</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,10 +28,19 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             border-width: 2px;
             border-radius: 10px;
         }
+
+        th {
+            text-align: center;
+        }
+
+        .pull-left {
+            color: #0a53be;
+        }
     </style>
 </head>
 <body>
 <div class="wrapper">
+    <h1 class="text-center" style="color: #6a1a21">Chào mừng <?php echo htmlspecialchars($_SESSION['fullname']); ?></h1>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -49,7 +58,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <th>Họ và tên</th>
                         <th>Giới tính</th>
                         <th>Ngày sinh</th>
-                        <th>Ảnh đại diện</th>
+                        <!--                        <th>Ảnh đại diện</th>-->
                         <th>Chức vụ</th>
                         <th>Hành động</th>
                     </tr>
@@ -85,8 +94,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             <td><?php echo $row['username']; ?></td>
                             <td><?php echo $row['fullname']; ?></td>
                             <td><?php echo $row['gender'] ? 'Nữ' : 'Nam'; ?></td>
-                            <td><?php echo date('d/m/yy', strtotime($row['birthday'])); ?></td>
-                            <td><img src="<?php echo $row['avatar']; ?>" width="100" height="100"></td>
+                            <td><?php echo date('d/m/Y', strtotime($row['birthday'])); ?></td>
+                            <!--                            <td><img src="-->
+                            <?php //echo $row['avatar']; ?><!--" width="100" height="100"></td>-->
                             <td><?php echo $role; ?></td>
                             <td>
                                 <a href="select-user.php?username=

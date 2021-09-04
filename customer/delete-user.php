@@ -6,26 +6,26 @@ if (isset($_POST['username']) && !empty($_POST['username'])) {
 
     $username = trim($_POST['username']);
 
-    $query_select = "select * from users where username = '" . $username . "'";
-    $result_select = pg_query($con, $query_select);
-    $row = pg_fetch_assoc($result_select);
+//    $query_select = "select * from users where username = '" . $username . "'";
+//    $result_select = pg_query($con, $query_select);
+//    $row = pg_fetch_assoc($result_select);
+//
+//    $avt = $row['avatar'];
+//
+//    $avatar_dir = $avt;
+//
+//    if (unlink($avatar_dir)) {
+    $query = "delete from users where username = '" . $username . "'";
 
-    $avt = $row['avatar'];
+    $result = pg_query($con, $query);
 
-    $avatar_dir = $avt;
-
-    if (unlink($avatar_dir)) {
-        $query = "delete from users where username = '" . $username . "'";
-
-        $result = pg_query($con, $query);
-
-        if ($result) {
-            echo '<script>alert("OK");</script>';
-            header('location: ../index.php');
-        } else {
-            echo '<script>alert("NOT OK");</script>';
-        }
+    if ($result) {
+        echo '<script>alert("OK");</script>';
+        header('location: ../index.php');
+    } else {
+        echo '<script>alert("NOT OK");</script>';
     }
+//    }
 }
 ?>
 
@@ -46,6 +46,11 @@ if (isset($_POST['username']) && !empty($_POST['username'])) {
             width: 600px;
             margin: 0 auto;
         }
+
+        .btn-danger, .btn-secondary, .alert-danger {
+            border-radius: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -53,14 +58,14 @@ if (isset($_POST['username']) && !empty($_POST['username'])) {
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="mt-5 mb-3">Xoá người dùng</h2>
+                <h2 style="color: darkred" class="mt-5 mb-3 text-center">Xoá người dùng</h2>
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                     <div class="alert alert-danger">
                         <input type="hidden" name="username" value="<?php echo trim($_GET['username']); ?>">
-                        <p>Bạn có muốn xoá người dùng này?</p>
+                        <p class="text-center">Bạn có muốn xoá người dùng này?</p>
                         <p>
                             <input type="submit" class="btn btn-danger" value="Đồng ý">
-                            <a href="list-user.php" class="btn btn-secondary">Không</a>
+                            <a href="customer-dashboard.php" class="btn btn-secondary">Không</a>
                         </p>
                     </div>
                 </form>

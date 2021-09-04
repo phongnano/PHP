@@ -87,7 +87,7 @@ if (isset($_GET["username"]) && !empty(trim($_GET["username"]))) {
                     <label><b style="color: green">Chức vụ</b></label>
                     <p><?php echo $role; ?></p>
                 </div>
-                <p><a href="list-user.php" class="btn btn-primary">Quay về</a></p>
+                <p><a href="customer-dashboard.php" class="btn btn-primary">Quay về</a></p>
             </div>
         </div>
     </div>

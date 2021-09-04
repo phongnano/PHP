@@ -3,21 +3,21 @@ require '../backend/connection.php';
 $username = $password = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
     $username = pg_escape_string($_POST['username']);
     $password = pg_escape_string($_POST['password']);
 
     if (empty($username) && empty($password)) {
-        echo '<div class="alert alert-danger text-center" role="alert">Tài khoản và mật khẩu không được bỏ trống</div>';
-    } else if (empty($username)) {
-        echo '<div class="alert alert-danger text-center" role="alert">Tài khoản không được bỏ trống</div>';
-    } else if (empty($password)) {
-        echo '<div class="alert alert-danger text-center" role="alert">Mật khẩu không được bỏ trống</div>';
+        echo '<div class="alert alert-danger text-center">Tài khoản và mật khẩu không được bỏ trống</div>';
+    } elseif (empty($username)) {
+        echo '<div class="alert alert-danger text-center">Tài khoản không được bỏ trống</div>';
+    } elseif (empty($password)) {
+        echo '<div class="alert alert-danger text-center">Mật khẩu không được bỏ trống</div>';
     } else {
         $query = "select * from users where username = '" . $username . "' and password = '" . md5($password) . "'";
         $result = pg_query($con, $query);
         $row = pg_fetch_assoc($result);
         if (pg_num_rows($result) == 1) {
+
             session_start();
 
             $_SESSION['loggedin'] = true;
@@ -26,21 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['role'] = $row['role'];
             $role = $_SESSION['role'];
             if ($role == 0) {
-                header('location:../admin/admin2-dashboard.php');
+                header('location:../../admin/admin-dashboard.php');
                 exit();
             }
             if ($role == 1) {
-                header('location:../employee/employee-dashboard.php');
+                header('location:../../employee/employee-dashboard.php');
                 exit();
             }
             if ($role == 2) {
-                header('location:../customer/list-user.php');
+                header('location:../../customer/customer-dashboard.php');
                 exit();
             }
         } else {
-            echo '<div class="alert alert-danger" role="alert">Tài khoản hoặc mật khẩu không đúng</div>';
+            //echo '<script>alert("Tài khoản hoặc mật khẩu không đúng");</script>';
+            echo pg_last_error();
         }
-        pg_close($con);
     }
 }
 ?>
@@ -53,11 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
     <style>
         .border-md {
             border-width: 2px;
-            border-radius: 10px;
+            border-radius: 15px;
         }
 
         body {
@@ -85,17 +84,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .btn-outline-primary {
             border-width: 2px;
-            border-radius: 10px;
+            height: 52px;
+            border-radius: 15px;
         }
 
         input {
             border-radius: 50px;
         }
+
+        label.error
     </style>
 </head>
 <body>
 <div class="container">
-    <form name="login" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <div class="row py-5 mt-4 align-items-center">
             <!--        Title-->
             <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
@@ -107,16 +109,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <!--            Login form-->
             <div class="col-md-7 col-lg-6 ml-auto">
                 <div class="row">
-
                     <!--                    Username-->
                     <div class="input-group col-lg-6 mb-4">
                         <div class="input-group-prepend"><span
                                     class="input-group-text bg-white px-4 border-md border-right-0"><i
                                         class="fa fa-user text-muted"></i></span></div>
                         <input id="username" type="text" name="username" placeholder="Tài khoản"
-                               class="form-control bg-white border-left-0 border-md"
-                               value="<?php echo $username; ?>">
+                               class="form-control bg-white border-left-0 border-md">
                     </div>
+                    <!--                    <div class="form-group col-lg-6 mb-4">-->
+                    <!--                        <input id="username" type="text" name="username" placeholder="Nhập tài khoản"-->
+                    <!--                               class="form-control bg-white border-md">-->
+                    <!--                    </div>-->
 
                     <!--                    Password-->
                     <div class="input-group col-lg-6 mb-4">
@@ -124,9 +128,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     class="input-group-text bg-white px-4 border-md border-right-0"><i
                                         class="fa fa-lock text-muted"></i></span></div>
                         <input id="password" type="password" name="password" placeholder="Mật khẩu"
-                               class="form-control bg-white border-left-0 border-md"
-                               value="<?php echo $password; ?>">
+                               class="form-control bg-white border-left-0 border-md">
                     </div>
+                    <!--                    <div class="form-group col-lg-6 mb-4">-->
+                    <!--                        <input id="password" type="password" name="password" placeholder="Nhập mật khẩu"-->
+                    <!--                               class="form-control bg-white border-md">-->
+                    <!--                    </div>-->
 
                     <!--                    Login button-->
                     <div class="form-group col-lg-12 mx-auto mb-0">

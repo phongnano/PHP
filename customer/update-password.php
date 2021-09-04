@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div class="form-group">
             <input type="submit" class="btn btn-primary ml-2" value="Cập nhật">
-            <a class="btn btn-link ml-2" href="list-user.php">Huỷ</a>
+            <a class="btn btn-link ml-2" href="customer-dashboard.php">Huỷ</a>
         </div>
     </form>
 </div>

@@ -4,7 +4,7 @@ body {
 
 .border-md {
     border-width: 2px;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .form-control:not(select) {
@@ -28,7 +28,8 @@ select.form-control {
 
 .btn-outline-success {
     border-width: 2px;
-    border-radius: 10px;
+    height: 52px;
+    border-radius: 15px;
 }
 
 /*Imamge*/
@@ -77,14 +78,14 @@ select.form-control {
 
 .ui-datepicker {
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 15px;
     font-size: 18px;
-    font-weight: bold
+    font-weight: bolder;
 }
 
 .ui-datepicker-header {
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 15px;
     border-width: 0;
 }
 
@@ -106,25 +107,26 @@ select.form-control {
     background: #000;
     font-weight: normal;
     color: #fff;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
-.ui-widget-content .ui-state-active {
-    border: 0;
-    background: mediumpurple;
-    color: #fff;
-    border-radius: 10px;
-}
+/*.ui-widget-content .ui-state-active {*/
+/*    border: 0;*/
+/*    background: mediumpurple;*/
+/*    color: #fff;*/
+/*    border-radius: 15px;*/
+/*}*/
 
 .ui-datepicker-buttonpane button {
-    border-radius: 10px;
+    border-radius: 15px;
+    font-weight: bolder;
 }
 
 .ui-datepicker-today .ui-state-highlight {
-    background: #E6E6E6 repeat-x scroll 50% 50%;
-    color: #555555;
+    background: #fdf7ca repeat-x scroll 50% 50%;
+    color: rebeccapurple;
     font-weight: bolder;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .ui-datepicker-week-end, .a.ui-datepicker-default {
@@ -132,7 +134,14 @@ select.form-control {
 }
 
 .ui-state-hover {
-    border-radius: 10px;
+    border-radius: 12px;
+}
+
+.ui-datepicker-month, .ui-datepicker-year {
+    border: 0;
+    text-align: center;
+    border-radius: 5px;
+    color: navy;
 }
 
 /*#phone:active, #phone:focus {*/

@@ -4,7 +4,6 @@ require '../backend/connection.php';
 $username = $fullname = $birthday = $gender = $email = $phone = $password = $confirm_password = $role = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //    Validation username
 
     $username = pg_escape_string(($_POST['username']));
     $fullname = pg_escape_string($_POST['fullname']);
@@ -66,7 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     echo '<div class="alert alert-danger text-center" role="alert">Đăng ký thất bại</div>';
                     echo pg_last_error();
                 }
-                pg_close($con);
             } else {
                 echo '<div class="alert alert-danger text-center" role="alert">Mật khẩu không khớp</div>';
             }
@@ -130,8 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </span>
                         </div>
                         <input id="username" type="text" name="username" placeholder="Tài khoản"
-                               class="form-control bg-white border-left-0 border-md"
-                               value="<?php echo $username; ?>">
+                               class="form-control bg-white border-left-0 border-md">
                     </div>
 
                     <!--                    Fullname-->
@@ -142,8 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </span>
                         </div>
                         <input id="fullname" type="text" name="fullname" placeholder="Họ và tên"
-                               class="form-control bg-white border-left-0 border-md"
-                               value="<?php echo $fullname; ?>">
+                               class="form-control bg-white border-left-0 border-md"">
                     </div>
 
                     <!--                    Birthday-->
@@ -154,8 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </span>
                         </div>
                         <input id="birthday" name="birthday" placeholder="Ngày sinh"
-                               class="form-control bg-white border-left-0 border-md" maxlength="10"
-                               value="<?php echo $birthday; ?>">
+                               class="form-control bg-white border-left-0 border-md" maxlength="10">
                     </div>
 
                     <!--                    Gender-->
@@ -166,8 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </span>
                         </div>
                         <select id="gender" name="gender"
-                                class="form-control bg-white border-left-0 border-md"
-                                value="<?php echo $gender; ?>">
+                                class="form-control bg-white border-left-0 border-md">
                             <option selected disabled hidden>Giới tính</option>
                             <option value="male">Nam</option>
                             <option value="female">Nữ</option>
@@ -182,8 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </span>
                         </div>
                         <input id="email" type="email" name="email" placeholder="Email"
-                               class="form-control bg-white border-left-0 border-md"
-                               value="<?php echo $email; ?>">
+                               class="form-control bg-white border-left-0 border-md">
                     </div>
 
                     <!--                    Phone-->
@@ -194,8 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </span>
                         </div>
                         <input id="phone" type="tel" name="phone" placeholder="Điện thoại"
-                               class="form-control bg-white border-left-0 border-md" maxlength="10"
-                               value="<?php echo $phone; ?>">
+                               class="form-control bg-white border-left-0 border-md" maxlength="10">
                     </div>
 
                     <!--                    Password-->
@@ -206,8 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </span>
                         </div>
                         <input id="password" type="password" name="password" placeholder="Mật khẩu"
-                               class="form-control bg-white border-left-0 border-md"
-                               value="<?php echo $password; ?>">
+                               class="form-control bg-white border-left-0 border-md">
                     </div>
 
                     <!--                    Password Confirmation-->
@@ -219,8 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <input id="confirm_password" type="password" name="confirm_password"
                                placeholder="Xác nhận mật khẩu"
-                               class="form-control bg-white border-left-0 border-md"
-                               value="<?php echo $confirm_password; ?>">
+                               class="form-control bg-white border-left-0 border-md">
                     </div>
 
                     <!--                    <div class="col-lg-12 mx-auto">-->
